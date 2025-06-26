@@ -5,8 +5,16 @@
 
 class PhoneBook {
 	private:
-		Contact contacts[8];
-		int		contactCount;
+		Contact _contacts[8];
+		int _contactCount;
+		int _oldestContact;
+
+	public:
+		PhoneBook();
+		~PhoneBook();
+
+		void addContact();
+		void searchContact();
 };
 
 #endif
