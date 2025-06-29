@@ -1,7 +1,7 @@
 #ifndef PHONE_BOOK_HPP
 # define PHONE_BOOK_HPP
 
-# include <contact.hpp>
+# include "contact.hpp"
 
 class PhoneBook {
 	private:
@@ -13,8 +13,8 @@ class PhoneBook {
 		PhoneBook();
 		~PhoneBook();
 
-		void addContact();
-		void searchContact();
+		int addContact();
+		int searchContact();
 };
 
 #endif

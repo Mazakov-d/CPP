@@ -3,38 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:06:39 by mazakov           #+#    #+#             */
-/*   Updated: 2025/06/26 16:20:50 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/06/29 14:28:58 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <contact.hpp>
+#include "contact.hpp"
 #include <iostream>
 
-Contact::Contact();
-
-Contact::~Contact();
-
-void Contact::displayFirstName () {
-	std::cout << Contact::_firstName;
+Contact::Contact() {
 }
 
-void Contact::displayLastName () {
-	std::cout << Contact::_lastName;
+Contact::~Contact() {
 }
 
-void Contact::displayNickname () {
-	std::cout << Contact::_nickname;
+std::string Contact::retFirstName () {
+	return (Contact::_firstName);
 }
 
-void Contact::displayPhoneNumber () {
-	std::cout << Contact::_phoneNumber;
+std::string Contact::retLastName () {
+	return (Contact::_lastName);
 }
 
-void Contact::displayDarkestSecret () {
-	std::cout << Contact::_darkestSecret;
+std::string Contact::retNickname () {
+	return (Contact::_nickname);
+}
+
+std::string Contact::retPhoneNumber () {
+	return (Contact::_phoneNumber);
+}
+
+std::string Contact::retDarkestSecret () {
+	return (Contact::_darkestSecret);
 }
 
 void Contact::addFirstName (const std::string newFirstName) {
