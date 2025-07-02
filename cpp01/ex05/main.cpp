@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   newZombie.cpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/30 00:15:21 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/06/30 13:41:41 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/06/30 22:44:06 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/06/30 22:45:38 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "Harl.hpp"
 
-Zombie* Zombie::newZombie(std::string name) {
-	Zombie* zombie = new Zombie();
-	zombie->_name = name;
-	return zombie;
+int main (int ac, char **av) {
+	int i = 1;
+	Harl harl;
+
+	while (i < ac)
+	{
+		harl.complain(av[i]);
+		i++;
+	}
 }

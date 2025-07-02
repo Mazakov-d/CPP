@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 00:10:28 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/06/30 00:34:43 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/06/30 13:39:10 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 class Zombie {
 	private:
 
-		std::string name;
+		std::string _name;
 
 	public:
 
