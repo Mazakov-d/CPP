@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 21:53:11 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/06/30 22:29:26 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/02 19:02:54 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int ac, char **av) {
 	std::string fileName = std::string(av[1]) + ".replace";
 
 	std::ifstream fileIn(av[1]);
-	std::ofstream fileOut(fileName);
+	std::ofstream fileOut(fileName.c_str());
 
 	if (!fileOut.is_open() || !fileIn.is_open())
 	{
