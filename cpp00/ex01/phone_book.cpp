@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phone_book.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:28:35 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/06/29 15:00:32 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/02 18:55:23 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,32 @@ void displayColumn(std::string text)
 	}
 }
 
+void displayIndex(int index)
+{
+	int i = 1;
+
+	std::cout << index;
+	while (i < 10)
+	{
+		std::cout << " ";
+		i++;
+	}
+}
+
 void displayLine(std::string first, std::string second, std::string third, std::string fourth)
 {
 	displayColumn(first);
+	std::cout << "|";
+	displayColumn(second);
+	std::cout << "|";
+	displayColumn(third);
+	std::cout << "|";
+	displayColumn(fourth);
+	std::cout << std::endl;
+}
+
+void displayLineWIndex(int index, std::string second, std::string third, std::string fourth) {
+	displayIndex(index);
 	std::cout << "|";
 	displayColumn(second);
 	std::cout << "|";
@@ -143,7 +166,7 @@ int PhoneBook::searchContact() {
 	{
 		if (i == 0)
 			displayLine("Index", "First Name", "Last Name", "Nickname");
-		displayLine(std::to_string(i + 1),
+		displayLineWIndex((i + 1),
 				_contacts[i].retFirstName(),
 				_contacts[i].retLastName(),
 				_contacts[i].retNickname());
@@ -163,7 +186,7 @@ int PhoneBook::searchContact() {
 			if (_contactCount > 8 && index > 8)
 				std::cout << "The index max is 8." << std::endl;
 			else if (index >= _contactCount)
-				std:: cout << "The index max is " << std::to_string(_contactCount) << std::endl;
+				std:: cout << "The index max is " << _contactCount << std::endl;
 			else
 				break ;
 		}
