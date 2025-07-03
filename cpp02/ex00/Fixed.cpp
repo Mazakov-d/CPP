@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:29:20 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/01 16:04:34 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/07/02 22:51:24 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int Fixed::getRawBits( void ) const {
 }
 
 void Fixed::setRawBits( int const raw ) {
+	std::cout << "setRawBits member called\n";
 	_fixedPoint = raw;
 }

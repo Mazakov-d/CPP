@@ -3,18 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:29:20 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/01 16:04:34 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/07/02 23:47:27 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <iostream>
+#include <cmath>
 
 Fixed::Fixed(void): _fixedPoint(0) {
 	std::cout << "Default constructor called\n";
+}
+
+Fixed::Fixed(const int cstInt) {
+	std::cout << "Int constructor called\n";
+	_fixedPoint = cstInt * (1 << _fractionalBits);
+}
+
+Fixed::Fixed(const float cstFlt) {
+	std::cout << "Float constructor called\n";
+	_fixedPoint = roundf(cstFlt * (1 << _fractionalBits) );
 }
 
 Fixed::~Fixed(void) {
@@ -34,11 +45,24 @@ Fixed& Fixed::operator=(const Fixed& c) {
 	return *this;
 }
 
+std::ostream& operator<<(std::ostream& os, const Fixed& fp) {
+	os << fp.toFloat();
+	return os;
+}
+
+
 int Fixed::getRawBits( void ) const {
-	std::cout << "getRawBits member called\n";
 	return _fixedPoint;
 }
 
 void Fixed::setRawBits( int const raw ) {
 	_fixedPoint = raw;
+}
+
+float Fixed::toFloat( void ) const {
+	return (static_cast<float>(_fixedPoint) / (1 << _fractionalBits));
+}
+
+int Fixed::toInt( void ) const {
+	return (_fixedPoint >> (1 * _fractionalBits));
 }

@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*   bsp.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/01 15:03:38 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/02 22:51:42 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/03 11:49:14 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/03 12:47:52 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIXED_HPP
-# define FIXED_HPP
+#include "Point.hpp"
 
-class Fixed {
-	private:
-		int	_fixedPoint;
-		static const int _fractionalBits = 8;
-
-	public:
-		Fixed(void);
-		Fixed(const Fixed& cpy);
-		Fixed& operator=(const Fixed& c);
-		~Fixed(void);
-
-		int getRawBits( void ) const;
-		void setRawBits( int const raw );
-};
-
-#endif
+bool bsp( Point const a, Point const b, Point const c, Point const point) {
+	if (point == a || point == b || point == c)
+		return (true);
+	return (const_cast<Point&>(point).pointInTriangle(a, b, c));
+}

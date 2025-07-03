@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:03:38 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/02 13:37:15 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/07/02 23:55:40 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 # define FIXED_HPP
+
+# include <iostream>
 
 class Fixed {
 	private:
@@ -25,6 +27,8 @@ class Fixed {
 		Fixed(const Fixed& cpy);
 		Fixed& operator=(const Fixed& c);
 		~Fixed(void);
+
+		friend std::ostream& operator<<(std::ostream& os, const Fixed& fp);
 
 		int getRawBits( void ) const;
 		void setRawBits( int const raw );
