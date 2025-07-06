@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Point.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:27:22 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/04 14:54:20 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/06 14:28:50 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ class Point {
 	~Point();
 	Point(const float x, const float y);
 	Point(const Point& cpy);
-	Point& operator=(const Point& cpy);
+
+	bool operator==(const Point& other) const;
 
 	Fixed getX() const;
 	Fixed getY() const;

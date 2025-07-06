@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Point.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:27:06 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/04 15:03:13 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/06 14:29:04 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ Point::Point(const Point& cpy): _x(cpy._x), _y(cpy._y) {
 
 }
 
-Point& Point::operator=(const Point& cpy)m{
-	return (*this);
-}
-
 Fixed Point::getX() const {
-	return (_x);
+	return _x;
 }
 
 Fixed Point::getY() const {
-	return (_y);
+	return _y;
+}
+
+bool Point::operator==(const Point& other) const {
+	return (_x == other._x && _y == other._y);
 }

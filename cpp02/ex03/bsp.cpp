@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bsp.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:36:39 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/04 14:57:55 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/06 14:29:50 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ bool bsp( Point const a, Point const b, Point const c , Point const point) {
 	Fixed d1, d2, d3;
 	bool has_neg, has_pos;
 
+	if (point == a || point == b || point == c) {
+		return false;
+	}
 	d1 = sign(point, a, b);
 	d2 = sign(point, b, c);
 	d3 = sign(point, c, a);
