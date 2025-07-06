@@ -5,27 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/01 15:03:38 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/02 22:51:42 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/03 13:24:19 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/03 15:53:40 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 # define FIXED_HPP
 
+# include <iostream>
+
 class Fixed {
 	private:
-		int	_fixedPoint;
-		static const int _fractionalBits = 8;
+	int _fixedPoint;
+	static const int _fractionalBits = 8;
 
 	public:
-		Fixed(void);
-		Fixed(const Fixed& cpy);
-		Fixed& operator=(const Fixed& c);
-		~Fixed(void);
+	Fixed();
+	Fixed(const Fixed& cpy);
+	Fixed& operator=(const Fixed& cpy);
+	~Fixed();
 
-		int getRawBits( void ) const;
-		void setRawBits( int const raw );
+	int getRawBits( void ) const;
+	void setRawBits( int const raw );
 };
 
 #endif

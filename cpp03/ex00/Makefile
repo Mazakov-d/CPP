@@ -1,12 +1,12 @@
-NAME= point
+NAME= clapTrap
 
 CC		= c++
 CF		= -Wall -Wextra -Werror -std=c++98
 
 OBJ_DIR	= .obj
 
-HEADER	= Fixed.hpp Point.hpp
-SRC		= main.cpp Fixed.cpp Point.cpp bsp.cpp
+HEADER	= ClapTrap.hpp
+SRC		= main.cpp ClapTrap.cpp
 OBJ		= $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
 GREEN	= \033[32m

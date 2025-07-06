@@ -6,7 +6,7 @@ CF		= -Wall -Wextra -Werror -std=c++98
 OBJ_DIR	= .obj
 
 HEADER	= Fixed.hpp
-SRC		= Fixed.cpp main.cpp
+SRC		= main.cpp Fixed.cpp
 OBJ		= $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
 GREEN	= \033[32m

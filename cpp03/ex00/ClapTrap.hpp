@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 14:27:22 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/04 14:54:20 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/05 13:14:14 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/05 13:49:56 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POINT_HPP
-# define POINT_HPP
+#ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP
 
-# include "Fixed.hpp"
+# include <string>
+# include <iostream>
 
-class Point {
+class ClapTrap {
 	private:
-	Fixed const _x;
-	Fixed const _y;
+	std::string _name;
+	int _hitPoints;
+	int _energyPoints;
+	int _attackdamage;
 
 	public:
-	Point();
-	~Point();
-	Point(const float x, const float y);
-	Point(const Point& cpy);
-	Point& operator=(const Point& cpy);
+	ClapTrap(std::string name);
+	~ClapTrap();
+	ClapTrap(const ClapTrap& cpy);
+	ClapTrap& operator=(const ClapTrap& cpy);
 
-	Fixed getX() const;
-	Fixed getY() const;
+	void attack(const std::string& target);
+	void takeDamage(unsigned int amount);
+	void beRepaired(unsigned int amount);
 };
 
 #endif

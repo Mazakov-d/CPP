@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 14:27:22 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/04 14:54:20 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/05 13:46:36 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/05 14:01:44 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POINT_HPP
-# define POINT_HPP
+#include "ClapTrap.hpp"
 
-# include "Fixed.hpp"
+int main() {
+	ClapTrap a("Bob");
+	ClapTrap b(a);
 
-class Point {
-	private:
-	Fixed const _x;
-	Fixed const _y;
-
-	public:
-	Point();
-	~Point();
-	Point(const float x, const float y);
-	Point(const Point& cpy);
-	Point& operator=(const Point& cpy);
-
-	Fixed getX() const;
-	Fixed getY() const;
-};
-
-#endif
+	b.attack("Bob");
+	b.beRepaired(10);
+	b.beRepaired(10);
+	b.takeDamage(20);
+	b.beRepaired(10);
+	b.beRepaired(10);
+	b.takeDamage(20);
+	b.beRepaired(10);
+	b.beRepaired(10);
+	b.beRepaired(10);
+	b.beRepaired(10);
+	b.beRepaired(10);
+	b.beRepaired(10);
+	ClapTrap c("Marie");
+	c = b;
+	c.beRepaired(10);
+}
