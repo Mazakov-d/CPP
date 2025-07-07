@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   WrongCat.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/05 13:14:14 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 13:56:10 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/07 19:51:16 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/07 20:30:58 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLAPTRAP_HPP
-# define CLAPTRAP_HPP
+#ifndef WRONGCAT_HPP
+# define WRONGCAT_HPP
 
-# include <string>
-# include <iostream>
+# include "WrongAnimal.hpp"
 
-class ClapTrap {
-	private:
-	std::string _name;
-	int _hitPoints;
-	int _energyPoints;
-	int _attackDamage;
-
+class WrongCat: public WrongAnimal {
 	public:
-	ClapTrap(std::string name);
-	~ClapTrap();
-	ClapTrap(const ClapTrap& cpy);
-	ClapTrap& operator=(const ClapTrap& cpy);
-
-	void attack(const std::string& target);
-	void takeDamage(unsigned int amount);
-	void beRepaired(unsigned int amount);
+	WrongCat();
+	WrongCat(WrongCat& cpy);
+	WrongCat& operator=(WrongCat& cpy);
+	~WrongCat();
 };
 
 #endif

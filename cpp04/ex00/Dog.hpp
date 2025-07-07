@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/05 13:14:14 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 13:56:10 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/07 15:00:58 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/07 20:31:51 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLAPTRAP_HPP
-# define CLAPTRAP_HPP
+#ifndef DOG_HPP
+# define DOG_HPP
 
-# include <string>
-# include <iostream>
+# include "Animal.hpp"
 
-class ClapTrap {
-	private:
-	std::string _name;
-	int _hitPoints;
-	int _energyPoints;
-	int _attackDamage;
-
+class Dog: public Animal {
 	public:
-	ClapTrap(std::string name);
-	~ClapTrap();
-	ClapTrap(const ClapTrap& cpy);
-	ClapTrap& operator=(const ClapTrap& cpy);
-
-	void attack(const std::string& target);
-	void takeDamage(unsigned int amount);
-	void beRepaired(unsigned int amount);
+	Dog();
+	Dog(Dog& cpy);
+	Dog& operator=(Dog& cpy);
+	~Dog();
 };
 
 #endif

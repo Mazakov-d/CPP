@@ -1,12 +1,12 @@
-NAME= ScavTrap
+NAME= DiamondTrap
 
 CC		= c++
 CF		= -Wall -Wextra -Werror -std=c++98
 
 OBJ_DIR	= .obj
 
-HEADER	= ClapTrap.hpp ScavTrap.hpp
-SRC		= main.cpp ClapTrap.cpp ScavTrap.cpp
+HEADER	= ClapTrap.hpp ScavTrap.hpp FragTrap.hpp DiamondTrap.hpp
+SRC		= main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 OBJ		= $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
 GREEN	= \033[32m

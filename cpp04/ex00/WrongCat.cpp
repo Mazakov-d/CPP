@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/05 13:46:36 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 13:07:18 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/07 19:53:59 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/07 20:32:13 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
+#include "WrongCat.hpp"
 
-int main() {
-	ClapTrap a("Bob");
-	ClapTrap b(a);
-	ClapTrap c("Marie");
-	c.beRepaired(10);
-	c = b;
+WrongCat::WrongCat(): WrongAnimal("Cat") {
+	
+}
 
-	ScavTrap t("salut");
-	t.attack("Bob");
-	t.attack("Bob");
+WrongCat::WrongCat(WrongCat& cpy) {
+	_type = cpy._type;
+}
 
-	ScavTrap o(t);
-	t.guardGate();
-	t.guardGate();
-	o.attack("filou");
-	ScavTrap last("mark");
-	last.beRepaired(4);
-	last = o;
-	last.takeDamage(12);
+WrongCat& WrongCat::operator=(WrongCat& cpy) {
+	if (this != &cpy)
+		this->_type = cpy._type;
+	return *this;
+}
+
+WrongCat::~WrongCat() {
+	
 }

@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/05 13:14:14 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 13:55:54 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/07 15:00:47 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/07 20:34:21 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLAPTRAP_HPP
-# define CLAPTRAP_HPP
+#ifndef CAT_HPP
+# define CAT_HPP
 
-# include <string>
-# include <iostream>
+# include "Animal.hpp"
+# include "Brain.hpp"
 
-class ClapTrap {
-	protected:
-	std::string _name;
-	int _hitPoints;
-	int _energyPoints;
-	int _attackDamage;
+class Cat: public Animal {
+	private:
+	Brain* _brain;
 
 	public:
-	ClapTrap(std::string name);
-	~ClapTrap();
-	ClapTrap(const ClapTrap& cpy);
-	ClapTrap& operator=(const ClapTrap& cpy);
-
-	void attack(const std::string& target);
-	void takeDamage(unsigned int amount);
-	void beRepaired(unsigned int amount);
+	Cat();
+	Cat(Cat& cpy);
+	Cat& operator=(Cat& cpy);
+	~Cat();
 };
 
 #endif

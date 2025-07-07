@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:49:22 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 13:08:18 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/07 13:22:42 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ ScavTrap::~ScavTrap() {
 }
 
 ScavTrap::ScavTrap(ScavTrap& cpy): ClapTrap(cpy._name) {
+	std::cout << "[ScavTrap]: cpy constructor caled: " << _name << std::endl;
 	_hitPoints = cpy._hitPoints;
 	_energyPoints = cpy._energyPoints;
 	_attackDamage = cpy._attackDamage;
@@ -31,6 +32,7 @@ ScavTrap::ScavTrap(ScavTrap& cpy): ClapTrap(cpy._name) {
 }
 
 ScavTrap ScavTrap::operator=(ScavTrap& cpy) {
+	std::cout << "[ScavTrap]: operator = called: " << cpy._name << std::endl;
 	if (this != &cpy)
 	{
 		this->_name = cpy._name;

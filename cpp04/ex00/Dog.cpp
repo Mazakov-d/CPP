@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/05 13:46:36 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 13:07:18 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/07 15:17:03 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/07 20:31:47 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
+#include "Dog.hpp"
 
-int main() {
-	ClapTrap a("Bob");
-	ClapTrap b(a);
-	ClapTrap c("Marie");
-	c.beRepaired(10);
-	c = b;
+Dog::Dog(): Animal("Dog") {
+	std::cout << "Dog: Default constructor is called." << std::endl;
+}
 
-	ScavTrap t("salut");
-	t.attack("Bob");
-	t.attack("Bob");
+Dog::Dog(Dog& cpy) {
+	_type = cpy._type;
+	std::cout << "Dog: Copy constructor called." << std::endl;
+}
 
-	ScavTrap o(t);
-	t.guardGate();
-	t.guardGate();
-	o.attack("filou");
-	ScavTrap last("mark");
-	last.beRepaired(4);
-	last = o;
-	last.takeDamage(12);
+Dog& Dog::operator=(Dog& cpy) {
+	if (this != &cpy)
+		this->_type = cpy._type;
+	return *this;
+}
+
+Dog::~Dog() {
+	std::cout << "Dog: Destructor called." << std::endl;
 }
