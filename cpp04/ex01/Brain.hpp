@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 20:16:25 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 20:38:42 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/07 21:16:56 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ class Brain {
 
 	public:
 	Brain();
-	Brain(Brain& cpy);
-	Brain& operator=(Brain& cpy);
+	Brain(const Brain& cpy);
+	Brain& operator=(const Brain& cpy);
 	~Brain();
 
 	void setIdeas(std::string idea);

@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:51:16 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 20:30:58 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/07 21:17:33 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 class WrongCat: public WrongAnimal {
 	public:
 	WrongCat();
-	WrongCat(WrongCat& cpy);
-	WrongCat& operator=(WrongCat& cpy);
+	WrongCat(const WrongCat& cpy);
+	WrongCat& operator=(const WrongCat& cpy);
 	~WrongCat();
 };
 

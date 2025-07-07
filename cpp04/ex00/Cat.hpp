@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:00:47 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 20:31:43 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/07 21:29:32 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 class Cat: public Animal {
 	public:
 	Cat();
-	Cat(Cat& cpy);
-	Cat& operator=(Cat& cpy);
+	Cat(const Cat& cpy);
+	Cat& operator=(const Cat& cpy);
+	void makeSound() const ;
 	~Cat();
 };
 

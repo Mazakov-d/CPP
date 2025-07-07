@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:00:58 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 20:31:51 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/07 21:29:24 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 class Dog: public Animal {
 	public:
 	Dog();
-	Dog(Dog& cpy);
-	Dog& operator=(Dog& cpy);
+	Dog(const Dog& cpy);
+	Dog& operator=(const Dog& cpy);
+	void makeSound() const;
 	~Dog();
 };
 

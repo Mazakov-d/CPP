@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:43:32 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 20:30:39 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/07 21:17:15 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ class WrongAnimal {
 	public:
 	WrongAnimal();
 	WrongAnimal(std::string type);
-	WrongAnimal(WrongAnimal& cpy);
-	WrongAnimal& operator=(WrongAnimal& cpy);
+	WrongAnimal(const WrongAnimal& cpy);
+	WrongAnimal& operator=(const WrongAnimal& cpy);
 	~WrongAnimal();
 
 	std::string getType() const;

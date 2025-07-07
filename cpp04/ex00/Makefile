@@ -5,7 +5,7 @@ CF		= -Wall -Wextra -Werror -std=c++98
 
 OBJ_DIR	= .obj
 
-HEADER	= Animal.hpp Cat.hpp Dog.hpp WrongCat.hpp WrongAnimal.cpp
+HEADER	= Animal.hpp Cat.hpp Dog.hpp WrongCat.hpp WrongAnimal.hpp
 SRC		= main.cpp Dog.cpp Cat.cpp Animal.cpp WrongAnimal.cpp WrongCat.cpp
 OBJ		= $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 

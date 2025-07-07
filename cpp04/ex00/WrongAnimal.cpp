@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:43:00 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 20:32:00 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/07 21:30:33 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ WrongAnimal::WrongAnimal(std::string type): _type(type) {
 	
 }
 
-WrongAnimal::WrongAnimal(WrongAnimal& cpy): _type(cpy._type) {
-	
+WrongAnimal::WrongAnimal(const WrongAnimal& cpy): _type(cpy._type) {
+	std::cout << "WrongAnimal: Copy constructor called: " << _type << std::endl;
 }
 
-WrongAnimal& WrongAnimal::operator=(WrongAnimal& cpy) {
+WrongAnimal& WrongAnimal::operator=(const WrongAnimal& cpy) {
+	std::cout << "WrongAnimal: Operator '=' called: " << cpy._type << std::endl;
 	if (this != &cpy)
 		this->_type = cpy._type;
 	return *this;
@@ -39,8 +40,5 @@ std::string WrongAnimal::getType() const {
 }
 
 void WrongAnimal::makeSound() const {
-	if (_type == "Cat")
-		std::cout << "Woof" << std::endl;
-	if (_type == "Human")
-		std::cout << "Peace" << std::endl;
+	std::cout << "Wrong Sound" << std::endl;
 }
