@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 19:56:27 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 20:56:55 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/07 21:44:25 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,19 @@ int main()
 		new Dog(),
 		new Cat(),
 		new Dog()};
-	
+
+	std::cout << animals[0]->getType();
+	animals[0]->makeSound();
+
+	Cat* cpy = new Cat(*(Cat*)animals[0]);
+
+	cpy->makeSound();
+
 	for (int i = 0; i < 4; i++) {
 		delete animals[i];
 	}
 	
+	cpy->makeSound();
+	delete cpy;
 	return 0;
 }

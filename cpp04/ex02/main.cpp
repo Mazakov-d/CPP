@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/07 15:00:23 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 22:01:09 by dorianmazar      ###   ########.fr       */
+/*   Created: 2025/07/07 19:56:27 by dorianmazar       #+#    #+#             */
+/*   Updated: 2025/07/07 22:03:23 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_HPP
-# define ANIMAL_HPP
+# include "Dog.hpp"
+# include "Cat.hpp"
+# include "WrongCat.hpp"
 
-# include <string>
-# include <iostream>
+int main()
+{
+	Animal* animals[] = {new Cat(),
+		new Dog(),
+		new Cat(),
+		new Dog()};
 
-class Animal {
-	protected:
-	std::string _type;
+	std::cout << animals[0]->getType();
+	animals[0]->makeSound();
 
-	public:
-	Animal();
-	Animal(std::string type);
-	Animal(const Animal& cpy);
-	Animal& operator=(const Animal& cpy);
-	~Animal();
+	Cat* cpy = new Cat(*(Cat*)animals[0]);
 
-	std::string getType() const;
-	virtual void makeSound() const;
-};
+	cpy->makeSound();
 
-#endif
+	for (int i = 0; i < 4; i++) {
+		delete animals[i];
+	}
+	
+	cpy->makeSound();
+	delete cpy;
+	return 0;
+}
