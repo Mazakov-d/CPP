@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 21:08:25 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/17 22:23:45 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/18 00:16:35 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class AMateria {
 
 	public:
 	AMateria(std::string const& type);
-	~AMateria();
+	virtual ~AMateria();
 	AMateria(const AMateria& cpy);
 	AMateria& operator=(const AMateria& other);
 	std::string const& getType() const;

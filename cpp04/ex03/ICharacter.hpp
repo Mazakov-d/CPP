@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 21:09:41 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/18 00:00:18 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/18 00:14:48 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define ICHARACTER_HPP
 
 # include <string>
-# include "AMateria.hpp"
+
+class AMateria;
 
 class ICharacter {
 	public:

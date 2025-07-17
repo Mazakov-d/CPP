@@ -6,14 +6,16 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 23:43:49 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/17 23:55:05 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/18 00:11:07 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MateriaSource.hpp"
 
 MateriaSource::MateriaSource() {
-	
+	for (int i = 0; i < 4; i++) {
+		_materias[i] = nullptr;
+	}
 }
 
 MateriaSource::~MateriaSource() {

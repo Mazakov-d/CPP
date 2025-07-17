@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 22:16:46 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/17 22:38:54 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/18 00:17:21 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Ice::~Ice() {
 	
 }
 
-Ice::Ice(const Ice& cpy): AMateria("ice") {
+Ice::Ice(const Ice& cpy): AMateria(cpy) {
 	
 }
 

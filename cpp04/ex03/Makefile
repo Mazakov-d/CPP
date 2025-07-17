@@ -1,4 +1,4 @@
-NAME= animal
+NAME= play
 
 CC		= c++
 CF		= -Wall -Wextra -Werror -std=c++98

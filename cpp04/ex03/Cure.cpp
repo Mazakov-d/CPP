@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 22:20:07 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/17 22:41:42 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/18 00:17:05 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Cure::~Cure() {
 
 }
 
-Cure::Cure(const Cure& cpy): AMateria("cure") {
+Cure::Cure(const Cure& cpy): AMateria(cpy) {
 	
 }
 

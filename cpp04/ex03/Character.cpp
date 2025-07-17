@@ -6,13 +6,13 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 22:42:09 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/18 00:02:30 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/18 00:15:27 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Character.hpp"
 
-Character::Character(std::string name): _name(name), _trashedI(0), _equipement(0) {
+Character::Character(std::string name): _name(name), _equipement(0), _trashedI(0) {
 	for (int i = 0; i < 4; i++)
 		_materias[i] = nullptr;
 	
@@ -103,6 +103,7 @@ void Character::equip(AMateria* m) {
 		if (!_materias[i])
 		{
 			_materias[i] = m->clone();
+			break;
 		}
 		i++;
 	}
@@ -112,7 +113,7 @@ void Character::equip(AMateria* m) {
 void Character::unequip(int idx) {
 	if (_equipement == 0)
 		return ;
-	if (!(0 <= idx < 4))
+	if (idx < 0 || idx >= 4)
 		return ;
 	if (!_materias[idx])
 		return ;
@@ -123,7 +124,7 @@ void Character::unequip(int idx) {
 }
 
 void Character::use(int idx, ICharacter& target) {
-	if (!(0 <= idx < 4))
+	if (idx < 0 || idx >= 4)
 		return ;
 	if (!_materias[idx])
 		return ;
