@@ -6,13 +6,14 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 12:28:35 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/02 18:55:23 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/07/24 14:12:39 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phone_book.hpp"
 #include "contact.hpp"
 #include <iostream>
+#include <iomanip>
 
 PhoneBook::PhoneBook() : _contactCount(0), _oldestContact(0) {
 }
@@ -23,31 +24,18 @@ PhoneBook::~PhoneBook() {
 
 void displayColumn(std::string text)
 {
-	int i = 0;
-	int flag = 0;
-
-	while (i < 10)
+	if (text.length() > 10)
 	{
-		if (!flag && !text[i])
-			flag = 1;
-		if (!flag && text[i])
-			std::cout << text[i];
-		if (flag)
-			std::cout << " ";
-		i++;
+		text = text.substr(0, 10);
+		text[9] = '.';
 	}
+	std::cout << std::setw(10) << text;
 }
 
 void displayIndex(int index)
 {
-	int i = 1;
+	std::cout << std::setw(10) << index;
 
-	std::cout << index;
-	while (i < 10)
-	{
-		std::cout << " ";
-		i++;
-	}
 }
 
 void displayLine(std::string first, std::string second, std::string third, std::string fourth)

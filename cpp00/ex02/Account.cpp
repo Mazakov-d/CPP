@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:57:09 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/02 18:57:47 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/07/24 13:56:14 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void Account::makeDeposit(int deposit) {
 bool Account::makeWithdrawal(int withdrawl) {
 	_displayTimestamp();
 	std::cout << "index:" << _accountIndex;
-	std::cout << ";p_amount" << _amount;
+	std::cout << ";p_amount:" << _amount;
 	std::cout << ";withdrawal:";
 	if (withdrawl <= _amount)
 	{
