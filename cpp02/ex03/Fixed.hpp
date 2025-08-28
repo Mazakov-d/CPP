@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 13:24:19 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/24 14:22:52 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/28 11:19:58 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,8 @@ class Fixed {
 	static const Fixed& max(const Fixed& a, const Fixed &b);
 
 };
+
+std::ostream& operator<<(std::ostream& os, const Fixed& f);
+
 
 #endif

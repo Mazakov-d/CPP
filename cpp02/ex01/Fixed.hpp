@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 13:24:19 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/24 14:21:45 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/28 11:19:37 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ class Fixed {
 	Fixed(const Fixed& cpy);
 	Fixed& operator=(const Fixed& cpy);
 	~Fixed();
+
 
 	int getRawBits( void ) const;
 	void setRawBits( int const raw );
