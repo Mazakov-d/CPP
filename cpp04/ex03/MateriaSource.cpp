@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MateriaSource.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 23:43:49 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/18 00:11:07 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/24 11:37:29 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 MateriaSource::MateriaSource() {
 	for (int i = 0; i < 4; i++) {
-		_materias[i] = nullptr;
+		_materias[i] = NULL;
 	}
 }
 
@@ -33,7 +33,7 @@ MateriaSource::MateriaSource(const MateriaSource& cpy) {
 		if (cpy._materias[i])
 			_materias[i] = cpy._materias[i]->clone();
 		else
-			_materias[i] = nullptr;
+			_materias[i] = NULL;
 	}
 }
 
@@ -45,7 +45,7 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& other) {
 			if (other._materias[i])
 				_materias[i] = other._materias[i]->clone();
 			else
-				_materias[i] = nullptr;
+				_materias[i] = NULL;
 		}
 	}
 	return *this;
@@ -68,5 +68,5 @@ AMateria* MateriaSource::createMateria(std::string const& type) {
 			return _materias[i]->clone();
 		}
 	}
-	return nullptr;
+	return NULL;
 }

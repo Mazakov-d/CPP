@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:46:36 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/07 13:34:52 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/24 11:15:01 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "ScavTrap.hpp"
 
 int main() {
-	ClapTrap a;
+	ClapTrap a("Mark");
 	ScavTrap b("Francis");
 	a.attack("Francis");
 	b.takeDamage(20);
 	ClapTrap c("Rick");
 	c = a;
 	c.attack("Francis");
-	FragTrap d;
+	FragTrap d("paul");
 	d.highFivesGuys();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 13:24:19 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/04 13:33:18 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/24 14:22:52 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ class Fixed {
 	Fixed& operator=(const Fixed& cpy);
 	~Fixed();
 
-	friend std::ostream& operator<<(std::ostream& os, const Fixed& f);
 	bool operator<=(const Fixed& other) const;
 	bool operator>=(const Fixed& other) const;
 	bool operator==(const Fixed& other) const;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Character.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 22:42:09 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/18 00:15:27 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/24 11:37:07 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 Character::Character(std::string name): _name(name), _equipement(0), _trashedI(0) {
 	for (int i = 0; i < 4; i++)
-		_materias[i] = nullptr;
+		_materias[i] = NULL;
 	
 }
 
@@ -41,7 +41,7 @@ Character::Character(const Character& cpy): _name(cpy._name) {
 		if (cpy._materias[i])
 			_materias[i] = cpy._materias[i]->clone();
 		else
-			_materias[i] = nullptr;
+			_materias[i] = NULL;
 		i++;
 	}
 	i = 0;
@@ -50,7 +50,7 @@ Character::Character(const Character& cpy): _name(cpy._name) {
 		if (cpy._trash[i])
 			_trash.push_back(cpy._trash[i]->clone());
 		else
-			_trash.push_back(nullptr);
+			_trash.push_back(NULL);
 		i++;
 	}
 	_equipement = cpy._equipement;
@@ -118,7 +118,7 @@ void Character::unequip(int idx) {
 	if (!_materias[idx])
 		return ;
 	_trash.push_back(_materias[idx]);
-	_materias[idx] = nullptr;
+	_materias[idx] = NULL;
 	_equipement--;
 	_trashedI++;
 }

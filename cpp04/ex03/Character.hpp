@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Character.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 21:19:41 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/07/18 00:03:53 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/07/24 11:36:43 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
