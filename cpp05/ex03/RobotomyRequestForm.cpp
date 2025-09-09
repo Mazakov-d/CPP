@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 13:17:22 by mazakov           #+#    #+#             */
-/*   Updated: 2025/09/09 15:21:43 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/09/09 15:43:40 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 RobotomyRequestForm::RobotomyRequestForm(std::string target):
         AForm("RRF", 72, 45), _target(target) {
+}
+
+RobotomyRequestForm::RobotomyRequestForm(std::string name, std::string target):
+        AForm(name, 72, 45), _target(target) {
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& cpy):

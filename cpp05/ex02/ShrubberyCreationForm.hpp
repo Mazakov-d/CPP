@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 13:17:38 by mazakov           #+#    #+#             */
-/*   Updated: 2025/09/06 13:45:06 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/09/09 15:23:27 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SHRUBBERYCREATIONFORM_HPP
 
 # include "AForm.hpp"
+# include <fstream>
 
 class ShrubberyCreationForm : public AForm {
     private :
@@ -24,6 +25,11 @@ class ShrubberyCreationForm : public AForm {
         ShrubberyCreationForm(const ShrubberyCreationForm& cpy);
         ShrubberyCreationForm& operator=(const ShrubberyCreationForm& other);
         ~ShrubberyCreationForm();
+
+		const std::string getTarget();
+
+        void execute(Bureaucrat const & executor) const;
+
 } ;
 
 #endif

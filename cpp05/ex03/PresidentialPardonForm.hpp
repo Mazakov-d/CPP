@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 13:16:55 by mazakov           #+#    #+#             */
-/*   Updated: 2025/09/09 15:23:32 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/09/09 15:42:28 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class PresidentialPardonForm : public AForm {
 
     public :
         PresidentialPardonForm(std::string target);
+        PresidentialPardonForm(std::string name, std::string target);
         PresidentialPardonForm(const PresidentialPardonForm& cpy);
         PresidentialPardonForm& operator=(const PresidentialPardonForm& other);
         ~PresidentialPardonForm();

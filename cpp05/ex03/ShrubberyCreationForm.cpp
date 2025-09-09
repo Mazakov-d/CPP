@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 13:17:33 by mazakov           #+#    #+#             */
-/*   Updated: 2025/09/09 15:28:15 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/09/09 15:43:21 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target):
         AForm("SCF", 145, 137), _target(target) {
+}
+
+ShrubberyCreationForm::ShrubberyCreationForm(std::string name, std::string target):
+        AForm(name, 145, 137), _target(target) {
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const& cpy):
