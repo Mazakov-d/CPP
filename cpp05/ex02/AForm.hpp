@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/30 15:47:47 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/09/06 13:44:43 by mazakov          ###   ########.fr       */
+/*   Created: 2025/09/06 13:11:29 by mazakov           #+#    #+#             */
+/*   Updated: 2025/09/06 13:51:36 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_HPP
-# define FORM_HPP
+#ifndef AFORM_HPP
+# define AFORM_HPP
 
 # include "Bureaucrat.hpp"
 
 class Bureaucrat;
 
-class	Form {
+class	AForm {
 	private:
 		std::string	_name;
 		bool		_isSigned;
@@ -26,17 +26,19 @@ class	Form {
 	
 	public:
 		//Canonical Constructor/Destructor
-		Form();
-		Form(std::string name, int gradeToSign, int gradeToExecute);
-		Form& operator=(const Form& cpy);
-		Form(const Form& cpy);
-		~Form();
+		AForm();
+		AForm(std::string name, int gradeToSign, int gradeToExecute);
+		AForm& operator=(const AForm& cpy);
+		AForm(const AForm& cpy);
+		virtual ~AForm();
 
 		//Getter functions
 		std::string	getName() const;
 		bool		isSigned() const;
 		int			getGradeToSign() const;
 		int			getGradeToExecute() const;
+
+        virtual void execute(Bureaucrat const & executor) = 0;
 
 		//Class functions
 		void		beSigned(Bureaucrat& bureaucrat);

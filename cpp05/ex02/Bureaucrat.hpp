@@ -6,7 +6,7 @@
 /*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 15:33:32 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/09/06 13:44:17 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/09/06 13:44:49 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # include <string>
 # include <iostream>
-#include <stdexcept>
+# include <stdexcept>
+# include "Form.hpp"
 
+class Form;
 
 class	Bureaucrat {
 	private:
@@ -32,13 +34,16 @@ class	Bureaucrat {
 		Bureaucrat&	operator=(const Bureaucrat &cpy);
 		~Bureaucrat();
 
-		//Functions to acces private attribute
+		//Getter functions
 		std::string	getName() const;
 		int			getGrade() const;
 
 		//Incrementing/Decrementing funcionts
 		void		incrementGrade();
 		void		decrementGrade();
+
+		//Form function
+		void	signForm(Form& form);
 
 		// Execption class
 		class	GradeTooHighException: public std::exception {

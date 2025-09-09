@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/30 15:48:03 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/09/06 13:44:40 by mazakov          ###   ########.fr       */
+/*   Created: 2025/09/06 13:11:15 by mazakov           #+#    #+#             */
+/*   Updated: 2025/09/06 13:43:15 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Form.hpp"
+#include "AForm.hpp"
 
 //Canonical Constructor/Destructor
-Form::Form(): _name("default"), _isSigned(false), _gradeToSign(75), _gradeToExecute(75) {
+AForm::AForm(): _name("default"), _isSigned(false), _gradeToSign(75), _gradeToExecute(75) {
 	
 }
 
-Form::Form(std::string name, int gradeToSign, int gradeToExecute): _isSigned(false) {
+AForm::~AForm() {
+    
+}
+
+AForm::AForm(std::string name, int gradeToSign, int gradeToExecute): _isSigned(false) {
 	if (gradeToSign > 150 || gradeToExecute > 150)
 		throw GradeTooLowException();
 	if (gradeToSign < 1 || gradeToExecute < 1)
@@ -27,14 +31,14 @@ Form::Form(std::string name, int gradeToSign, int gradeToExecute): _isSigned(fal
 	_name = name;
 }
 
-Form::Form(const Form& cpy) {
+AForm::AForm(const AForm& cpy) {
 	_name = cpy.getName();
 	_isSigned = cpy.isSigned();
 	_gradeToExecute = cpy.getGradeToExecute();
 	_gradeToSign = cpy.getGradeToSign();
 }
 
-Form&	Form::operator=(const Form& cpy) {
+AForm&	AForm::operator=(const AForm& cpy) {
 	if (this != &cpy)
 	{
 		_name = cpy.getName();
@@ -45,29 +49,25 @@ Form&	Form::operator=(const Form& cpy) {
 	return *this;
 }
 
-Form::~Form() {
-	
-}
-
 //Getter functions
-std::string	Form::getName() const {
+std::string	AForm::getName() const {
 	return _name;
 }
 
-bool	Form::isSigned() const {
+bool	AForm::isSigned() const {
 	return _isSigned;
 }
 
-int	Form::getGradeToExecute() const {
+int	AForm::getGradeToExecute() const {
 	return _gradeToExecute;
 }
 
-int	Form::getGradeToSign() const {
+int	AForm::getGradeToSign() const {
 	return _gradeToSign;
 }
 
 //Class functions
-void	Form::beSigned(Bureaucrat& bureaucrat) {
+void	AForm::beSigned(Bureaucrat& bureaucrat) {
 	int	gradeOfTheBureaucrat = bureaucrat.getGrade();
 	int	gradeToSignForm = this->getGradeToSign();
 
@@ -82,17 +82,17 @@ void	Form::beSigned(Bureaucrat& bureaucrat) {
 }
 
 //Exception implementation
-const char*	Form::GradeTooHighException::what(void) const throw() {
+const char*	AForm::GradeTooHighException::what(void) const throw() {
 	return ("Grade is too high !");
 }
 
-const char*	Form::GradeTooLowException::what(void) const throw() {
+const char*	AForm::GradeTooLowException::what(void) const throw() {
 	return ("Grade is too low !");
 }
 
 
 //OStream operator << 
-std::ostream& operator<<(std::ostream& o, Form& form) {
+std::ostream& operator<<(std::ostream& o, AForm& form) {
 	o << "The form " << form.getName() << " need a grade of " << form.getGradeToSign() << " to sign and a grade of ";
 	o << form.getGradeToExecute() << " to execute, actually is " << (form.isSigned() ? "signed !" : "not signed !");
 	return o;

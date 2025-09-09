@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 15:33:12 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/08/30 15:47:09 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/09/06 13:44:22 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat& cpy) {
 	_grade = cpy.getGrade();
 }
 
-Bureaucrat	Bureaucrat::operator=(const Bureaucrat& cpy) {
+Bureaucrat&	Bureaucrat::operator=(const Bureaucrat& cpy) {
 	if (this != &cpy) {
 		_name = cpy.getName();
 		_grade = cpy.getGrade();
