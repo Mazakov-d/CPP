@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 13:17:10 by mazakov           #+#    #+#             */
-/*   Updated: 2025/09/09 15:21:35 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/09/09 15:44:02 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 PresidentialPardonForm::PresidentialPardonForm(std::string target): 
         AForm("PPF", 25, 5), _target(target) {
-
 }
+
+PresidentialPardonForm::PresidentialPardonForm(std::string name, std::string target): 
+        AForm(name, 25, 5), _target(target) {
+}
+
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& cpy): 
 	AForm(cpy), _target(cpy._target) {
 }

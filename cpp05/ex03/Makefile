@@ -6,10 +6,10 @@ CF		= -Wall -Wextra -Werror -std=c++98
 OBJ_DIR	= .obj
 
 HEADER	= Bureaucrat.hpp AForm.hpp PresidentialPardonForm.hpp \
-			RobotomyRequestForm.hpp ShrubberyCreationForm.hpp
+			RobotomyRequestForm.hpp ShrubberyCreationForm.hpp Intern.hpp
 
 SRC		= AForm.cpp Bureaucrat.cpp  main.cpp PresidentialPardonForm.cpp \
-			RobotomyRequestForm.cpp ShrubberyCreationForm.cpp
+			RobotomyRequestForm.cpp ShrubberyCreationForm.cpp Intern.cpp
 
 OBJ		= $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
