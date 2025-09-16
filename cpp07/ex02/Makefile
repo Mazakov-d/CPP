@@ -1,13 +1,15 @@
-NAME= iter
+NAME= array
 
 CC		= c++
-CF		= -Wall -Wextra -Werror -std=c++98
+CF		= -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
 OBJ_DIR	= .obj
+DEP_DIR = .dep
 
-HEADER	= iter.hpp
+HEADER	= Array.hpp
 SRC		= main.cpp
 OBJ		= $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
+DEP		=$(addprefix $(DEP_DIR)/, $(OBJ:.o=.d))
 
 GREEN	= \033[32m
 RED		= \033[0;31m
@@ -21,10 +23,12 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: %.cpp  $(HEADER) Makefile
 	@mkdir -p $(dir $@)
-	$(CC) $(CF) -c $< -o $@
+	@mkdir -p $(DEP_DIR)
+	$(CC) $(CF) -c $< -o $@ -MF $(DEP_DIR)/$*.d
 
 clean:
 	@rm -rf $(OBJ_DIR)
+	@rm -rf $(DEP_DIR)
 	@echo "$(RED)Object files removed.$(RESET)"
 
 fclean: clean
@@ -32,5 +36,7 @@ fclean: clean
 	@echo "$(RED)Executable '$(NAME)' removed.$(RESET)"
 
 re: fclean all
+
+-include $(DEP)
 
 .PHONY: all clean fclean re
