@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Intern.hpp"
+#include <cstdlib>
 
 Intern::Intern() {
 	
@@ -47,6 +48,6 @@ AForm*	Intern::makeForm(std::string name, std::string target) {
 		return (new ShrubberyCreationForm(name, target));
 	default:
 		std::cout << "Dont know this request\n";
-		return nullptr;
+		return 0;
 }
 }

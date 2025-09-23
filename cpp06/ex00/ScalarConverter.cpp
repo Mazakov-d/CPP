@@ -13,12 +13,13 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
 #include <cstring>
-#include <cerrno>
 #include <cfloat>
 #include <limits>
 #include <climits>
 #include <cstdlib>
 #include <iomanip>
+#include <string>
+#include <sstream>
 
 ScalarConverter::ScalarConverter() {
 
@@ -35,6 +36,18 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
 
 ScalarConverter::~ScalarConverter() {}
 
+template<typename T>
+T safeConvert(const char* str) {
+    std::stringstream ss(str);
+    T result;
+    ss >> result;
+    
+    if (ss.fail() || !ss.eof()) {
+        throw std::invalid_argument("impossible");
+    }
+    
+    return result;
+}
 
 bool    is_char(const char* str)
 {
@@ -46,9 +59,13 @@ bool    is_char(const char* str)
 
 bool    is_int(const char* str)
 {
-    for (size_t i = 0; i < std::strlen(str); i++)
+    size_t i = 0;
+
+    if (str && str[0] == '-')
+        i++;
+    for (size_t j = i; j < std::strlen(str); j++)
     {
-        if (!isdigit(str[i]))
+        if (!isdigit(str[j]))
             return false;
     }
     return true;
@@ -57,14 +74,17 @@ bool    is_int(const char* str)
 bool    is_double(const char* str)
 {
     int flag_dot = 0;
-    
-    for (size_t i = 0; i < std::strlen(str); i++)
+    size_t i = 0;
+
+    if (str && str[0] == '-')
+        i++;
+    for (size_t j = i; j < std::strlen(str); j++)
     {
-        if (!isdigit(str[i]) && str[i] != '.')
+        if (!isdigit(str[j]) && str[j] != '.')
             return (false);
-        if (str[i] == '.' && flag_dot > 0)
+        if (str[j] == '.' && flag_dot > 0)
             return (false);
-        if (str[i] == '.')    
+        if (str[j] == '.')    
             flag_dot++;
     }
     if (flag_dot == 0)
@@ -76,18 +96,21 @@ bool    is_float(const char* str)
 {
     int flag_dot = 0;
     int flag_f   = 0;
+    size_t i = 0;
 
-    for (size_t i = 0; i < std::strlen(str); i++)
+    if (str && str[0] == '-')
+        i++;
+    for (size_t j = i; j < std::strlen(str); j++)
     {
-        if (!isdigit(str[i]) && str[i] != 'f' && str[i] != '.')
+        if (!isdigit(str[j]) && str[j] != 'f' && str[j] != '.')
             return (false);
-        if (str[i] == 'f' && flag_f > 0)
+        if (str[j] == 'f' && flag_f > 0)
             return (false);
-        if (str[i] == '.' && flag_dot > 0)
+        if (str[j] == '.' && flag_dot > 0)
             return (false);
-        if (str[i] == 'f')
+        if (str[j] == 'f')
             flag_f++;
-        if (str[i] == '.')
+        if (str[j] == '.')
             flag_dot++;
     }
     if (flag_dot == 0 || flag_f == 0)
@@ -108,7 +131,7 @@ int check_type(const char* str)
     return (UNKNOWN);
 }
 
-void    char_convert(double d) {
+void    char_convert_from_double(double d) {
     std::cout << "char: ";
     if (d < 33 || d > 126)
         std::cout << "Non displayable." << std::endl;
@@ -119,7 +142,42 @@ void    char_convert(double d) {
     }
 }
 
-void    int_convert(double d)
+void    char_convert(int i)
+{
+    std::cout << "char: ";
+    if (i < 33 || i > 126)
+        std::cout << "Non displayable." << std::endl;
+    else
+    {
+        char c = static_cast<char>(i); 
+        std::cout << c << std::endl;
+    }
+}
+
+void    char_convert_from_float(float f)
+{
+    std::cout << "char: ";
+    if (f < 33 || f > 126)
+        std::cout << "Non displayable." << std::endl;
+    else
+    {
+        char c = static_cast<char>(f); 
+        std::cout << c << std::endl;
+    }
+}
+
+void    int_convert_from_float(float f)
+{
+    if (f > 2147483648 || f < (-2147483647.0))
+        std::cout << "int: impossible" << std::endl;
+    else
+    {
+        int i = static_cast<int>(f);
+        std::cout << "int: " << i << std::endl;
+    }
+}
+
+void    int_convert_from_double(double d)
 {
     if (d > INT_MAX || d < INT_MIN)
         std::cout << "int: impossible" << std::endl;
@@ -130,7 +188,8 @@ void    int_convert(double d)
     }
 }
 
-void    float_convert(double d)
+
+void    float_convert_from_double(double d)
 {
     if (d > FLT_MAX)
         std::cout << "float: +inff" << std::endl;
@@ -143,18 +202,6 @@ void    float_convert(double d)
     }
 }
 
-void    double_convert(long double ld)
-{
-    if (ld > DBL_MAX)
-        std::cout << "double: +inf" << std::endl;
-    else if (ld < -DBL_MAX)
-        std::cout << "double: -inf" << std::endl;
-    else
-    {
-        double  d = static_cast<double>(ld);
-        std::cout << "double: " << d << std::endl;
-    }
-}
 
 void    cast_from_char(const char* str)
 {
@@ -179,18 +226,65 @@ void    not_displayable()
     std::cout << "double: nan" << std::endl;
 }
 
-void    cast_from_n(const char* str)
+void    cast_from_int(const char* str)
 {
-    errno = 0;
-    long double  ld;
+    long i;
 
-    ld = strtold(str, NULL);
-    if (errno == ERANGE)
+    try {
+        i = safeConvert<int>(str);
+    }
+    catch (std::exception &e) {
         return (not_displayable());
-    char_convert(ld);
-    int_convert(ld);
-    float_convert(ld);
-    double_convert(ld);
+    }
+    if (i > INT_MAX || i < INT_MIN)
+    {
+        std::cout << "here" << std::endl;
+        return (not_displayable());
+    }
+    char_convert(i);
+    std::cout << "int: " << i << std::endl;
+    double  d = static_cast<double>(i);
+    std::cout << "double: " << d << std::endl;
+    float   f = static_cast<float>(i);
+    std::cout << "float: " << f << "f" << std::endl;
+}
+
+void    cast_from_flt(const char* str)
+{
+    float   f;
+    char* s = new char[strlen(str) + 1];
+
+    strcpy(s, str);
+    s[strlen(s) - 1] = 0;
+    try {
+        f = safeConvert<float>(s);
+    }
+    catch (std::exception &e) {
+        delete[] s;
+        return (not_displayable());
+    }
+    char_convert_from_float(f);
+    int_convert_from_float(f);
+    std::cout << "float: " << f << "f" << std::endl;
+    double  d = static_cast<double>(f);
+    std::cout << "double: " << d << std::endl;
+    delete[] s;
+}
+
+void    cast_from_d(const char* str)
+{
+    double  d;
+
+    try {
+        d = safeConvert<double>(str);
+    }
+    catch (std::exception &e) {
+        return (not_displayable());
+    }
+    char_convert_from_double(d);
+    int_convert_from_double(d);
+    float_convert_from_double(d);
+    std::cout << "double: " << d << std::endl;
 }
 
 void ScalarConverter::convert(const char* str) {
@@ -202,6 +296,10 @@ void ScalarConverter::convert(const char* str) {
         return (not_displayable());
     if (type == CHAR)
         return (cast_from_char(str));
+    else if (type == INT)
+        return (cast_from_int(str));
+    else if (type == FLOAT)
+        return (cast_from_flt(str));
     else
-        return (cast_from_n(str));
+        return (cast_from_d(str));
 }

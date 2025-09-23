@@ -77,7 +77,7 @@ int	main() {
 		Intern someRandomIntern;
 		AForm* rrf;
 		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
-		std::cout << rrf->getName();
+		std::cout << rrf->getName() ;
 	}
 
 }
