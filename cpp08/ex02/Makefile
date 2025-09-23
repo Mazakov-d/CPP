@@ -5,7 +5,7 @@ CF		= -Wall -Wextra -Werror -std=c++98
 
 OBJ_DIR	= .obj
 
-HEADER	= whatever.hpp
+HEADER	= MutantStack.hpp MutantStack.tpp
 SRC		= main.cpp
 OBJ		= $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
