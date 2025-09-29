@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   iter.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 14:55:02 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/09/16 15:07:08 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/09/29 11:42:00 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITER_HPP
 # define ITER_HPP
 
-template <typename T, typename F> void iter(T* array, size_t size, F f(T)) {
-	for (size_t i = 0; i < size; i++)
+# include <cstddef>
+
+template <typename T, typename F> void iter(T* array, const std::size_t size, F f(T)) {
+	for (std::size_t i = 0; i < size; i++)
 		f(array[i]);
 }
 

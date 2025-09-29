@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 16:14:22 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/09/17 16:21:06 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/09/29 11:45:11 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int main()
 {
-	std::vector v = {1, 2, 3, 4, 5};
+	std::vector<int> v;
 	try 
 	{
 		std::cout << ::easyfind(v, 5) << std::endl;
