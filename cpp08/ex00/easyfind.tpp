@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   easyfind.tpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:32:59 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/09/17 16:20:51 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/09/29 12:26:20 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "easyfind.hpp"
 
-const char *what() throw() {
+const char* NotInContainer::what() const throw() {
 	return ("Not in container.");
 }
 
