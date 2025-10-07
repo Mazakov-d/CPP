@@ -1,5 +1,6 @@
 #include "MutantStack.hpp"
 #include <iostream>
+#include <cstdlib>
 
 int main()
 {
@@ -11,6 +12,12 @@ int main()
     std::cout << mstack.size() << std::endl;
     mstack.push(3);
     mstack.push(5);
+    int i = 0;
+    while (i < 10000)
+    {
+        mstack.push(rand() % 11072001);
+        i++;
+    }
     mstack.push(737);
     mstack.push(0);
     MutantStack<int>::iterator it = mstack.begin();
@@ -19,8 +26,8 @@ int main()
     --it;
     while (it != ite)
     {
-    std::cout << *it << std::endl;
-    ++it;
+        std::cout << *it << std::endl;
+        ++it;
     }
     std::stack<int> s(mstack);
     return 0;
