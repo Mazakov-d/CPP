@@ -6,25 +6,20 @@
 /*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 17:43:57 by mazakov           #+#    #+#             */
-/*   Updated: 2025/09/19 18:43:40 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/10/28 01:05:54 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <algorithm>
+#include <limits>
 #include "Span.hpp"
-
 
 Span::Span(unsigned int N): _capacity(N), _size(0) {
 
     _ar.reserve(N);
 }
 
-
 Span::~Span() {}
-
-
-
-
-
 
 Span::Span(const Span& cpy): _capacity(cpy._capacity), _size(0) {
     _ar.reserve(_capacity);
@@ -51,11 +46,6 @@ Span& Span::operator=(const Span& other) {
     return *this;
 }
 
-
-
-
-
-
 void    Span::addNumber(int n) {
     if (_capacity <= _size)
         throw(OverSize());
@@ -64,63 +54,41 @@ void    Span::addNumber(int n) {
 }
 
 unsigned int Span::shortestSpan() {
-    unsigned int    *save = NULL;
-    unsigned int    span;
+	if (_size < 2)
+		throw (NotEnoughMembers());
+	std::sort(_ar.begin(), _ar.end());
+	int	save = std::numeric_limits<int>::max();
+	int	diff;
 
-    if (_size == 0 || _size == 1)
-        throw(NotEnoughMembers());
-    for (std::vector<int>::const_iterator it = _ar.begin(); it < _ar.end(); it++) {
-        for (std::vector<int>::const_iterator jt = it + 1; jt < _ar.end(); jt++) {
-            if (!save)
-            {
-                span = abs(*it - *jt);
-                save = &span;
-            }
-            else
-            {
-                if (span > abs(*it - *jt))
-                    span = abs(*it - *jt);
-            }
-        }
-    }
-    return span;
+	for (size_t i = 0; i < _size; i++) {
+		std::cout << "Array sorted: "<< _ar[i] << std::endl;
+	}
+	for (size_t i = 1; i < _size - 1; i++) {
+		diff = _ar[i] - _ar[i - 1];
+		if (diff < save)
+			save = diff;
+	}
+	return save;
 }
 
 unsigned int Span::longestSpan() {
-    unsigned int    *save = NULL;
-    unsigned int    span;
+	std::vector<int>::const_iterator itMin = std::min_element(_ar.begin(), _ar.end());
+	std::vector<int>::const_iterator itMax = std::max_element(_ar.begin(), _ar.end());
 
-    if (_size == 0 || _size == 1)
-        throw(NotEnoughMembers());
-    for (std::vector<int>::const_iterator it = _ar.begin(); it < _ar.end(); it++) {
-        for (std::vector<int>::const_iterator jt = it + 1; jt < _ar.end(); jt++) {
-            if (!save)
-            {
-                span = abs(*it - *jt);
-                save = &span;
-            }
-            else
-            {
-                if (span < abs(*it - *jt))
-                    span = abs(*it - *jt);
-            }
-        }
-    }
-    return span;
+	if (itMin == _ar.end() || itMin == itMax)
+		throw (NotEnoughMembers());
+	return abs(*itMax - *itMin);
 }
-
-
 
 void    Span::fill_array_in_capacity() {
     while (_size < _capacity)
     {
-        _ar.push_back(rand() % 11072001);
+		int n = rand() % 1234;
+        _ar.push_back(n);
+		std::cout << "Fill function: " << n <<std::endl;
         _size++;
     }
 }
-
-
-
 
 const char* Span::NotEnoughMembers::what() const throw() {
     return "Not enough members in the array to make this operation.";

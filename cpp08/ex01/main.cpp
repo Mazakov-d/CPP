@@ -6,7 +6,7 @@
 /*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 18:14:01 by mazakov           #+#    #+#             */
-/*   Updated: 2025/09/19 18:48:01 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/10/28 00:55:08 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int main()
     }
 
     try {
-        Span sp_b = Span(10000);     
+        Span sp_b = Span(10);     
         sp_b.fill_array_in_capacity();
         try {
             sp_b.addNumber(23);
