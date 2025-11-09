@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:27:13 by dmazari           #+#    #+#             */
-/*   Updated: 2025/10/07 19:16:40 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/11/07 09:03:35 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
+
 
 BitcoinExchange::BitcoinExchange() {}
 
@@ -28,15 +29,48 @@ BitcoinExchange&    BitcoinExchange::operator=(const BitcoinExchange& other) {
 
 BitcoinExchange::~BitcoinExchange() {}
 
-// BitcoinExchange::~BitcoinExchange() {}
+int	stringToDate(int& year, int& month, int& day, const std::string& str) {
+	std::istringstream	iss(str);
+	char				firstSeparator;
+	char				secondSeparator;
 
-// bool    isDatePossible(const std::string& date) {
-//     size_t  i = 0;
+	iss >> year >> firstSeparator >> month >> secondSeparator >> day;
+	if (iss.fail())
+		throw (BitcoinExchange::ConvertionFailed());
+	if (!iss.fail() || firstSeparator != '-' || secondSeparator != '-')
+		return (BAD_DATE);
+	return (EXIT_SUCCESS);
+}
+
+bool	isALeapYear(int year) {
+	if (year % 4)
+		return false;
+	if (year % 400)
+		return false;
+	return true;
+}
+
+bool	isYearAvailable(int year, int month, int day)
+{
+	int		shortMonth[4] = {4, 6, 9, 10};
+	int		longMonth[7] = {1, 3, 5, 7, 8, 10, 12};
+	int		sizeShortMonth = 4;
+	int		sizeLongMonth = 7;
+	bool	leapYear = isALeapYear(year);
+
+	if ((year < 2009 && month == 1) || year > 2025)
+		return false;
+	if (month < 1 || month > 12)
+		return false;
+}
+
+bool    isDatePossible(const std::string& date) {
+    size_t  i = 0;
     
-//     while (i < date.size()) {
+    while (i < date.size()) {
         
-//     }
-// }
+    }
+}
 
 std::string    BitcoinExchange::parseDataFile(const std::string& fileName) {
     std::ifstream	file(fileName.c_str(), std::ios_base::in);
@@ -52,7 +86,13 @@ std::string    BitcoinExchange::parseDataFile(const std::string& fileName) {
     return content;
 }
 
+BitcoinExchange::ConvertionFailed::ConvertionFailed() {}
 
+BitcoinExchange::ConvertionFailed::~ConvertionFailed() {}
+
+const char* BitcoinExchange::ConvertionFailed::what() const throw() {
+	return "A convertion failed";
+}
 
 BitcoinExchange::CanNotOpenFile::CanNotOpenFile(const std::string& message) { 
     _message = "Can't open the file " + message + ".";

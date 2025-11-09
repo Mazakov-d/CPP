@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:51:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/10/07 19:12:35 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/11/07 09:04:31 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int main(int ac, char **av) {
         std::cout << content << std::endl;
     }
     catch (std::exception& e) {
-        std::cerr << e.what() << std::endl; 
+        std::cerr << e.what() << std::endl;
     }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:51:48 by dmazari           #+#    #+#             */
-/*   Updated: 2025/10/07 19:10:16 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/11/07 08:50:20 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 # include <map>
 # include <exception>
 # include <fstream>
+# include <sstream>
+# include <unistd.h>
 
+# define BAD_DATE 1
 
 class BitcoinExchange {
 	private:
@@ -29,7 +32,16 @@ class BitcoinExchange {
 		BitcoinExchange& operator=(const BitcoinExchange& other);
 		~BitcoinExchange();
 
-		std::string parseDataFile(const std::string&);      
+		std::string parseDataFile(const std::string&);
+
+
+		class ConvertionFailed: std::exception {
+			public:
+				ConvertionFailed();
+				~ConvertionFailed();
+
+				const char* what() const throw();
+		};
 
 		class CanNotOpenFile: std::exception {
 			private:
