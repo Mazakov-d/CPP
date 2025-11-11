@@ -6,7 +6,7 @@
 /*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:51:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/11/11 16:42:48 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/11/11 17:04:06 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int main(int ac, char **av) {
 		ctx.parseDataFile();
 		ctx.executingConversion(av[1]);
 	} catch (std::exception &e) {
-		std::cerr << e.what() << std::endl;
+		std::cerr << "Error: " << e.what() << std::endl;
 	}
 }

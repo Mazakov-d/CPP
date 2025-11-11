@@ -6,7 +6,7 @@
 /*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:27:13 by dmazari           #+#    #+#             */
-/*   Updated: 2025/11/11 16:52:50 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/11/11 17:03:51 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,6 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other) {
 
 BitcoinExchange::~BitcoinExchange() {}
 
-// int stringToDate(int &year, int &month, int &day, const std::string &str) {
-// 	std::istringstream iss(str);
-// 	char firstSeparator;
-// 	char secondSeparator;
-
-// 	iss >> year >> firstSeparator >> month >> secondSeparator >> day;
-// 	if (iss.fail())
-// 		throw(BitcoinExchange::ConversionFailed());
-// 	if (!iss.eof() || firstSeparator != '-' || secondSeparator != '-')
-// 		return (BAD_DATE);
-// 	return (EXIT_SUCCESS);
-// }
-
-// int	stringToFloat(float& f, const std::string& str) {
-// 	std::istringstream iss(str);
-
-// 	iss >> f;
-// 	if (iss.fail())
-// 		throw(BitcoinExchange::ConversionFailed());
-// 	if (!iss.eof())
-// 		return (NOT_A_FLOAT);
-// 	return (EXIT_SUCCESS);
-// }
-
 bool isALeapYear(int year) {
 	if (!(year % 4))
 		return true;
@@ -64,27 +40,27 @@ bool isAVailableDate(int year, int month, int day) {
 
 	if (month < 1 || month > 12)
 	{
-		std::cout << "The month of '" << year << "-" << month << "-" << day << "' is not valid." << std::endl;
+		std::cerr << "Error: The month of '" << year << "-" << month << "-" << day << "' is not valid." << std::endl;
 		return false;
 	}
 	if (day < 1 || day > 31)
 	{
-		std::cout << "The day of '" << year << "-" << month << "-" << day << "' is not valid." << std::endl;
+		std::cerr << "Error: The day of '" << year << "-" << month << "-" << day << "' is not valid." << std::endl;
 		return false;
 	}
 	if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
 	{
-		std::cout << "The day of '" << year << "-" << month << "-" << day << "' is not valid." << std::endl;
+		std::cerr << "Error: The day of '" << year << "-" << month << "-" << day << "' is not valid." << std::endl;
 		return false;
 	}
 	if (month == 2 && day > 29)
 	{
-		std::cout << "The date '" << year << "-" << month << "-" << day << "' is not valid." << std::endl;
+		std::cerr << "Error: The date '" << year << "-" << month << "-" << day << "' is not valid." << std::endl;
 		return false;
 	}
 	if (month == 2 && day > 28 && !leapYear)
 	{
-		std::cout << "The date '" << year << "-" << month << "-" << day << "' is not valid because is not a leap year." << std::endl;
+		std::cerr << "Error: The date '" << year << "-" << month << "-" << day << "' is not valid because is not a leap year." << std::endl;
 		return false;
 	}
 	return true;
@@ -153,7 +129,7 @@ void BitcoinExchange::parseDataFile() {
 				continue;
 			if (exchangeRate < 0)
 			{
-				std::cout << "Can't have a negative exchange rate." << std::endl;
+				std::cerr << "Error: Can't have a negative exchange rate." << std::endl;
 				continue;
 			}
 			mapDateExchangeRate[tokens[0]] = exchangeRate;
@@ -204,29 +180,29 @@ void	BitcoinExchange::executingConversion(const std::string& fileName) {
 			issDate >> year >> firstSeparator >> month >> secondSeparator >> day ;
 			issValue >> value;
 			if (issDate.fail() || issValue.fail())
-				std::cout << "The format of this line: '" << content[i] << "' is not an appropriate one." << std::endl;
+				std::cerr << "Error: The format of this line: '" << content[i] << "' is not an appropriate one." << std::endl;
 			else if (!issValue.eof())
-				std::cout << "A float was expected for the value and got: " << tokens[1] << std::endl;
+				std::cerr << "Error: A float was expected for the value and got: " << tokens[1] << std::endl;
 			else if (!issDate.eof() || firstSeparator != '-' || secondSeparator != '-')
-				std::cout << "The format of date is not valid, format excepted: YYYY-MM-DD and get: " << tokens[0] << std::endl;
+				std::cerr << "Error: The format of date is not valid, format excepted: YYYY-MM-DD and get: " << tokens[0] << std::endl;
 			else if (!isAVailableDate(year, month, day))
 				continue;
 			else if (value < 0)
-				std::cout << "Can't have a negative value and get: " << value << std::endl;
+				std::cerr << "Error: Can't have a negative value and get: " << value << std::endl;
 			else if (value > 1000)
-				std::cout << "The value can't be greater than 1000." << std::endl;
+				std::cerr << "Error: The value can't be greater than 1000." << std::endl;
 			else {
 				try {
 					std::cout << tokens[0] << " => " << value << " = " << value * (getExchangeRateByDate(tokens[0])) << std::endl;
 				}
 				catch (NoExchangeRateForThisDate& e) {
-					std::cout << e.what() << std::endl;
+					std::cerr << e.what() << std::endl;
 				}
 			}
 				
 		}
 		else {
-			std::cout << "The format of this line: '" << content[i] << "' is not an appropriate one." << std::endl;
+			std::cerr << "Error: The format of this line: '" << content[i] << "' is not an appropriate one." << std::endl;
 		}
 	}
 }
