@@ -1,7 +1,7 @@
 NAME= btc
 
 CC		= c++
-CF		= -Wall -Wextra -Werror -std=c++98
+CF		= -Wall -Wextra -Werror -std=c++98 -g3
 
 OBJ_DIR	= .obj
 
