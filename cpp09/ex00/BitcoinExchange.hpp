@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:51:48 by dmazari           #+#    #+#             */
-/*   Updated: 2025/11/11 16:51:29 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/11/22 16:20:28 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <fstream>
 #include <iostream>
 #include <map>
-#include <vector>
 #include <sstream>
 #include <string>
 #include <cstdlib>

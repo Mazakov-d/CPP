@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:27:13 by dmazari           #+#    #+#             */
-/*   Updated: 2025/11/11 17:03:51 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/11/22 16:26:15 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,74 +66,47 @@ bool isAVailableDate(int year, int month, int day) {
 	return true;
 }
 
-bool	isSeparator(char c, const std::string& separators) {
-	for (size_t i = 0; i < separators.size(); ++i) {
-		if (separators[i] == c)
-			return true;
-	}
-	return false;
-}
-
-std::vector<std::string>	ftSplit(const std::string& str, const std::string& separators) {
-	std::vector<std::string>	tokens;
-
-	for (size_t i = 0; i < str.size(); ++i) {
-		if (isSeparator(str[i], separators))
-			++i;
-		else
-		{
-			size_t	j = i;
-			while (j < str.size() && !isSeparator(str[j], separators))
-				j++;
-			tokens.push_back(str.substr(i, j - i));
-			i = j;
-		}
-	}
-	return tokens;
-}
-
 void BitcoinExchange::parseDataFile() {
 	std::map<std::string, float>	mapDateExchangeRate;
-	std::vector<std::string>		content;
 	std::ifstream					file("data.csv", std::ios_base::in);
 	std::string						line;
 
 	if (!file.is_open())
 		throw(CanNotOpenFile("data.csv"));
-	while (getline(file, line)) {
-		content.push_back(line);
-	}
+	if (!getline(file, line))
+		throw (BadCSVFormat());
 
-	int		year;
-	char	firstSeparator;
-	int		month;
-	char	secondSeparator;
-	int		day;
+	int		year, month, day;
+	char	firstSeparator, secondSeparator;
 	float	exchangeRate;
 
-	if (content[0] != "date,exchange_rate")
+	if (line != "date,exchange_rate")
 		throw(BadCSVFormat());
 
-	for (size_t i = 1; i < content.size(); ++i) {
+	while (std::getline(file, line)) {
+		size_t	pos = line.find(',');
+		if (pos == std::string::npos)
+			continue ;
 
-		std::vector<std::string> tokens = ftSplit(content[i], ",");
-		if (tokens.size() == 2){
-			std::istringstream	issDate(tokens[0]);
-			std::istringstream	issExchangeRate(tokens[1]);
+		std::string	date = line.substr(0, pos);
+		std::string	rate = line.substr(pos + 1);
+		std::istringstream	issDate(date);
+		std::istringstream	issExchangeRate(rate);
 
-			issDate >> year >> firstSeparator >> month >> secondSeparator >> day ;
-			issExchangeRate >> exchangeRate;
-			if (issDate.fail() || issExchangeRate.fail())
-				continue;
-			if (!issExchangeRate.eof() || !issDate.eof() || firstSeparator != '-' || secondSeparator != '-' || !isAVailableDate(year, month, day))
-				continue;
-			if (exchangeRate < 0)
-			{
-				std::cerr << "Error: Can't have a negative exchange rate." << std::endl;
-				continue;
-			}
-			mapDateExchangeRate[tokens[0]] = exchangeRate;
+		issDate >> year >> firstSeparator >> month >> secondSeparator >> day ;
+		issExchangeRate >> exchangeRate;
+		if (issDate.fail() || issExchangeRate.fail())
+			continue;
+		if (!issDate.eof() || !issExchangeRate.eof())
+			continue;
+		if (firstSeparator != '-' || secondSeparator != '-' || !isAVailableDate(year, month, day))
+			continue;
+		if (exchangeRate < 0)
+		{
+			std::cerr << "Error: Can't have a negative exchange rate." << std::endl;
+			continue;
 		}
+		mapDateExchangeRate[date] = exchangeRate;
 	}
 	if (mapDateExchangeRate.empty())
 		throw (BadCSVFormat());
@@ -149,62 +122,71 @@ float BitcoinExchange::getExchangeRateByDate(const std::string& date) {
 	return it->second;
 }
 
-void	BitcoinExchange::executingConversion(const std::string& fileName) {
-	std::vector<std::string>		content;
-	std::ifstream					file(fileName.c_str(), std::ios_base::in);
-	std::string						line;
+void BitcoinExchange::executingConversion(const std::string& fileName) {
+    std::ifstream file(fileName.c_str());
+    std::string line;
 
-	if (!file.is_open())
-		throw(CanNotOpenFile(fileName));
-	while (getline(file, line)) {
-		content.push_back(line);
-	}
+    if (!file.is_open())
+        throw CanNotOpenFile(fileName);
 
-	int		year;
-	char	firstSeparator;
-	int		month;
-	char	secondSeparator;
-	int		day;
-	float	value;
+    if (!std::getline(file, line) || line != "date | value")
+        throw BadInputFormat();
 
-	if (content[0] != "date | value")
-		throw(BadInputFormat());
+    int year, month, day;
+    char sep1, sep2;
+    float value;
 
-	for (size_t i = 1; i < content.size(); ++i) {
+    while (std::getline(file, line)) {
 
-		std::vector<std::string> tokens = ftSplit(content[i], " | ");
-		if (tokens.size() == 2) {
-			std::istringstream	issDate(tokens[0]);
-			std::istringstream	issValue(tokens[1]);
+        size_t pos = line.find(" | ");
+        if (pos == std::string::npos) {
+            std::cerr << "Error: The format of this line: '" << line
+                      << "' is not an appropriate one." << std::endl;
+            continue;
+        }
 
-			issDate >> year >> firstSeparator >> month >> secondSeparator >> day ;
-			issValue >> value;
-			if (issDate.fail() || issValue.fail())
-				std::cerr << "Error: The format of this line: '" << content[i] << "' is not an appropriate one." << std::endl;
-			else if (!issValue.eof())
-				std::cerr << "Error: A float was expected for the value and got: " << tokens[1] << std::endl;
-			else if (!issDate.eof() || firstSeparator != '-' || secondSeparator != '-')
-				std::cerr << "Error: The format of date is not valid, format excepted: YYYY-MM-DD and get: " << tokens[0] << std::endl;
-			else if (!isAVailableDate(year, month, day))
-				continue;
-			else if (value < 0)
-				std::cerr << "Error: Can't have a negative value and get: " << value << std::endl;
-			else if (value > 1000)
-				std::cerr << "Error: The value can't be greater than 1000." << std::endl;
-			else {
-				try {
-					std::cout << tokens[0] << " => " << value << " = " << value * (getExchangeRateByDate(tokens[0])) << std::endl;
-				}
-				catch (NoExchangeRateForThisDate& e) {
-					std::cerr << e.what() << std::endl;
-				}
-			}
-				
-		}
-		else {
-			std::cerr << "Error: The format of this line: '" << content[i] << "' is not an appropriate one." << std::endl;
-		}
-	}
+        std::string date = line.substr(0, pos);
+        std::string valueStr = line.substr(pos + 3);
+
+        std::istringstream issDate(date);
+        issDate >> year >> sep1 >> month >> sep2 >> day;
+        std::istringstream issValue(valueStr);
+        issValue >> value;
+
+        if (issDate.fail() || issValue.fail()) {
+            std::cerr << "Error: The format of this line: '" << line
+                      << "' is not an appropriate one." << std::endl;
+            continue;
+        }
+        if (!issValue.eof()) {
+            std::cerr << "Error: A float was expected for the value and got: "
+                      << valueStr << std::endl;
+            continue;
+        }
+        if (!issDate.eof() || sep1 != '-' || sep2 != '-') {
+            std::cerr << "Error: The format of date is not valid, expected YYYY-MM-DD and got: "
+                      << date << std::endl;
+            continue;
+        }
+        if (!isAVailableDate(year, month, day))
+            continue;
+        if (value < 0) {
+            std::cerr << "Error: Can't have a negative value and got: "
+                      << value << std::endl;
+            continue;
+        }
+        if (value > 1000) {
+            std::cerr << "Error: The value can't be greater than 1000." << std::endl;
+            continue;
+        }
+        try {
+            float rate = getExchangeRateByDate(date);
+            std::cout << date << " => " << value << " = " << (value * rate) << std::endl;
+        }
+        catch (NoExchangeRateForThisDate& e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }
 }
 
 //exception classes
