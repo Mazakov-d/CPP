@@ -1,10 +1,10 @@
 #include <iostream>
-#include <deque>
+#include <stack>
 
 class RPN {
 	private:
-		std::deque<char>	_operators;
-		std::deque<int>		_operands;
+		std::stack<char>	_operators;
+		std::stack<int>		_operands;
 
 	public:
 		RPN();

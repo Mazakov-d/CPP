@@ -33,10 +33,10 @@ void RPN::parseInput(const std::string& arg) {
 		{
 			if (arg[i + 1] && arg[i + 1] != ' ')
 				throw(InputError());
-			_operands.push_back(arg[i] - '0');
+			_operands.push(arg[i] - '0');
 		}
 		else if (isOperator(arg[i]))
-			_operators.push_back(arg[i]);
+			_operators.push(arg[i]);
 		else
 			throw(InputError());
 	}
@@ -59,22 +59,22 @@ void RPN::execute() {
 	while (1) {
 		if (_operands.size() <= 1 || _operators.empty())
 			break;
-		int	a = _operands.front();
-		_operands.pop_front();
+		int	a = _operands.top();
+		_operands.pop();
 
-		int	b = _operands.front();
-		_operands.pop_front();
+		int	b = _operands.top();
+		_operands.pop();
 
-		char	c = _operators.front();
-		_operators.pop_front();
+		char	c = _operators.top();
+		_operators.pop();
 
-		_operands.push_front(calculate(a, b, c));
+		_operands.push(calculate(a, b, c));
 	}
 	if (_operands.size() != 1 || !_operators.empty())
 	{
 		throw(InputError());
 	}
-	std::cout << _operands.front() << std::endl;
+	std::cout << _operands.top() << std::endl;
 }
 
 
