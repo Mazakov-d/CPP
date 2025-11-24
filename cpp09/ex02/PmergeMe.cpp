@@ -1,4 +1,12 @@
 #include "PmergeMe.hpp"
+#include <memory>
+#include <string>
+#include <sstream>
+#include <cstddef>
+#include <time.h>
+#include <algorithm>
+#include <vector>
+#include <deque>
 
 /*
 * Exception classes
@@ -128,9 +136,9 @@ int*	jacobsthalSequence(size_t size) {
 
 	for (size_t i = 0; i <= size; ++i) {
 		if (i == 0)
-			jS[i] = 0;
-		else if (i == 1)
 			jS[i] = 1;
+		else if (i == 1)
+			jS[i] = 3;
 		else {
 			jS[i] = jS[i - 1] + (2 * jS[i - 2]);
 		}
@@ -138,4 +146,136 @@ int*	jacobsthalSequence(size_t size) {
 	return jS;
 }
 
-void	sort
+/*
+ * algorithm implentation
+*/
+
+template <typename T>
+void	swapIndex(T& t, size_t i, size_t j) {
+	if (i >= t.size() || j >= t.size())
+		return;
+	std::swap(t[i], t[j]);
+}
+
+template <typename T>
+void	fillContainer(T& t, int* input, size_t inputSize) {
+	for (size_t i = 0; i < inputSize; ++i) {
+		t.push_back(input[i]);
+	}
+}
+
+template <typename T>
+void	splitingWinnersAndLoosers(const T& t, T& winners, T& loosers) {
+	typename T::const_iterator iter = t.begin();
+
+	while (iter != t.end()) {
+		int	save = *iter;
+		++iter;
+		if (iter == t.end())
+		{
+			loosers.push_back(save);
+			break;
+		}
+		if (save > *iter)
+		{
+			winners.push_back(save);
+			loosers.push_back(*iter);
+		}
+		else
+		{
+			winners.push_back(*iter);
+			loosers.push_back(save);
+		}
+		++iter;
+	}
+}
+
+std::vector<int>	algorithmImplementationVec(std::vector<int> vec) {
+	if (vec.size() == 1)
+		return vec;
+	if (vec.size() == 2)
+	{
+		if (vec[0] > vec[1])
+			swapIndex(vec, 0, 1);
+		return vec;
+	}
+
+	std::vector<int> 					winners;
+	std::vector<int>					loosers;
+
+	splitingWinnersAndLoosers(vec, winners, loosers);
+
+	if (PRINT) {
+		std::cout << "*DIVIDING THE CONTAINER*" << std::endl;
+		std::cout << "Winners: ";
+		for (std::vector<int>::iterator it = winners.begin(); it != winners.end(); ++it) {
+			std::cout << *it << " ";
+		}
+		std::cout << std::endl;
+		std::cout << "Loosers: ";
+		for (std::vector<int>::iterator it = loosers.begin(); it != loosers.end(); ++it) {
+			std::cout << *it << " ";
+		}
+		std::cout << std::endl << std::endl;
+	}
+
+	winners = algorithmImplementationVec(winners);
+
+
+
+	return (winners);
+}
+
+std::deque<int>	algorithmImplementationDeq(std::deque<int>& deq) {
+	if (deq.size() == 1)
+		return deq;
+	if (deq.size() == 2)
+	{
+		if (deq[0] > deq[1])
+			swapIndex(deq, 0, 1);
+		return deq;
+	}
+
+	std::deque<int> winners;
+	std::deque<int> loosers;
+
+	splitingWinnersAndLoosers(deq, winners, loosers);
+
+	if (PRINT) {
+		std::cout << "*DIVIDING THE CONTAINER*" << std::endl;
+		std::cout << "Winners: ";
+		for (std::deque<int>::iterator it = winners.begin(); it != winners.end(); ++it) {
+			std::cout << *it << " ";
+		}
+		std::cout << std::endl;
+		std::cout << "Loosers: ";
+		for (std::deque<int>::iterator it = loosers.begin(); it != loosers.end(); ++it) {
+			std::cout << *it << " ";
+		}
+		std::cout << std::endl << std::endl;
+	}
+
+	winners = algorithmImplementationDeq(winners);
+
+
+
+	return winners;
+}
+
+clock_t	PmergeMe::FordJohnsonVector() {
+	clock_t	startTime = clock();
+	std::vector<int> vec;
+
+	fillContainer(vec, _input, _inputSize);
+	algorithmImplementationVec(vec);
+	return clock() - startTime;
+}
+
+clock_t	PmergeMe::FordJohnsonDeque() {
+	clock_t	startTime = clock();
+	std::deque<int>	deq;
+
+	fillContainer(deq, _input, _inputSize);
+	algorithmImplementationDeq(deq);
+	return clock() -startTime;
+}

@@ -1,17 +1,16 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 
-#include <memory>
-#include <iostream>
-#include <string>
+#define PRINT 1
+
+
 #include <exception>
-#include <sstream>
-#include <cstddef>
+#include <iostream>
+
+
 
 class PmergeMe {
 	private:
-		//first stack
-		//second stack
 		int*	_input;
 		size_t	_inputSize;
 		int*	_jacobsthalSequence;
@@ -23,6 +22,8 @@ class PmergeMe {
 		PmergeMe& operator=(const PmergeMe& other);
 		~PmergeMe();
 
+		clock_t	FordJohnsonVector();
+		clock_t	FordJohnsonDeque();
 		void	parseInput(char** args);
 
 		class BadToken : public std::exception {

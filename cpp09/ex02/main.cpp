@@ -11,6 +11,10 @@ int main(int ac, char** av) {
 	PmergeMe	ctx;
 	try {
 		ctx.parseInput(av + 1);
+		double timeVec = (double)ctx.FordJohnsonVector() * 1000000.0 / CLOCKS_PER_SEC;
+		double timeDeq = (double)ctx.FordJohnsonDeque() * 1000000.0 / CLOCKS_PER_SEC;
+		std::cout << "Time taken with std::vector : " << timeVec << " µs" << std::endl;
+		std::cout << "Time taken with std::deque : " << timeDeq << " µs" << std::endl;
 	}
 	catch (std::exception& e)
 	{
