@@ -22,6 +22,7 @@ class PmergeMe {
 		PmergeMe& operator=(const PmergeMe& other);
 		~PmergeMe();
 
+		void	jacobsthalSequence(size_t size);
 		clock_t	FordJohnsonVector();
 		clock_t	FordJohnsonDeque();
 		void	parseInput(char** args);

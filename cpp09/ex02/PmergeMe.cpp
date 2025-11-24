@@ -131,24 +131,49 @@ void	PmergeMe::parseInput(char** args) {
 }
 
 
-int*	jacobsthalSequence(size_t size) {
+void	PmergeMe::jacobsthalSequence(size_t size) {
 	int*	jS = new int[size];
+	size_t	value;
 
 	for (size_t i = 0; i <= size; ++i) {
 		if (i == 0)
-			jS[i] = 1;
+			value = 1;
 		else if (i == 1)
-			jS[i] = 3;
+			value = 3;
 		else {
-			jS[i] = jS[i - 1] + (2 * jS[i - 2]);
+			value = jS[i - 1] + (2 * jS[i - 2]);
+		}
+		if (value > size) {
+			_jacobsthalSequence = jS;
+			_jacobsthalSequenceSize = i;
+			return;
+		}
+		else {
+			_jacobsthalSequence[i] = value -1;
 		}
 	}
-	return jS;
+	return;
 }
 
 /*
- * algorithm implentation
+ * algorithm implementation
 */
+
+// std::vector<int>	PmergeMe::indexToInsert(size_t size) {
+// 	std::vector<int>	orderOfIndexToInsert;
+// 	_jacobsthalSequence = jacobsthalSequence(size);
+// 	_jacobsthalSequenceSize = size;
+
+// 	for (size_t i = 0; i < size; ++i) {
+// 		if (_jacobsthalSequenceSize > i && _jacobsthalSequence[i] <= size) {
+// 			orderOfIndexToInsert.push_back(_jacobsthalSequence[i] - 1);
+// 		}
+// 		else
+// 		{
+
+// 		}
+// 	}
+// }
 
 template <typename T>
 void	swapIndex(T& t, size_t i, size_t j) {
@@ -165,7 +190,7 @@ void	fillContainer(T& t, int* input, size_t inputSize) {
 }
 
 template <typename T>
-void	splitingWinnersAndLoosers(const T& t, T& winners, T& loosers) {
+void	splitingWinnersAndLosers(const T& t, T& winners, T& losers) {
 	typename T::const_iterator iter = t.begin();
 
 	while (iter != t.end()) {
@@ -173,18 +198,18 @@ void	splitingWinnersAndLoosers(const T& t, T& winners, T& loosers) {
 		++iter;
 		if (iter == t.end())
 		{
-			loosers.push_back(save);
+			losers.push_back(save);
 			break;
 		}
 		if (save > *iter)
 		{
 			winners.push_back(save);
-			loosers.push_back(*iter);
+			losers.push_back(*iter);
 		}
 		else
 		{
 			winners.push_back(*iter);
-			loosers.push_back(save);
+			losers.push_back(save);
 		}
 		++iter;
 	}
@@ -201,9 +226,9 @@ std::vector<int>	algorithmImplementationVec(std::vector<int> vec) {
 	}
 
 	std::vector<int> 					winners;
-	std::vector<int>					loosers;
+	std::vector<int>					losers;
 
-	splitingWinnersAndLoosers(vec, winners, loosers);
+	splitingWinnersAndLosers(vec, winners, losers);
 
 	if (PRINT) {
 		std::cout << "*DIVIDING THE CONTAINER*" << std::endl;
@@ -212,8 +237,8 @@ std::vector<int>	algorithmImplementationVec(std::vector<int> vec) {
 			std::cout << *it << " ";
 		}
 		std::cout << std::endl;
-		std::cout << "Loosers: ";
-		for (std::vector<int>::iterator it = loosers.begin(); it != loosers.end(); ++it) {
+		std::cout << "Losers: ";
+		for (std::vector<int>::iterator it = losers.begin(); it != losers.end(); ++it) {
 			std::cout << *it << " ";
 		}
 		std::cout << std::endl << std::endl;
@@ -222,6 +247,7 @@ std::vector<int>	algorithmImplementationVec(std::vector<int> vec) {
 	winners = algorithmImplementationVec(winners);
 
 
+	//insert until _jacobsthalSize and next remove the index from the jacobsthalIndex and insert in order
 
 	return (winners);
 }
@@ -237,9 +263,12 @@ std::deque<int>	algorithmImplementationDeq(std::deque<int>& deq) {
 	}
 
 	std::deque<int> winners;
-	std::deque<int> loosers;
+	std::deque<int> losers;
+	std::pair<int, int> pairs;
 
-	splitingWinnersAndLoosers(deq, winners, loosers);
+	//make pair with loop
+
+	splitingWinnersAndLosers(deq, winners, losers);
 
 	if (PRINT) {
 		std::cout << "*DIVIDING THE CONTAINER*" << std::endl;
@@ -248,8 +277,8 @@ std::deque<int>	algorithmImplementationDeq(std::deque<int>& deq) {
 			std::cout << *it << " ";
 		}
 		std::cout << std::endl;
-		std::cout << "Loosers: ";
-		for (std::deque<int>::iterator it = loosers.begin(); it != loosers.end(); ++it) {
+		std::cout << "Losers: ";
+		for (std::deque<int>::iterator it = losers.begin(); it != losers.end(); ++it) {
 			std::cout << *it << " ";
 		}
 		std::cout << std::endl << std::endl;
