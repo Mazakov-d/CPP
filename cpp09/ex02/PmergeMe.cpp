@@ -5,8 +5,6 @@
 #include <cstddef>
 #include <time.h>
 #include <algorithm>
-#include <vector>
-#include <deque>
 
 /*
 * Exception classes
@@ -109,6 +107,7 @@ void	PmergeMe::parseInput(char** args) {
 
 	int	iArrayInput = 0;
 	int	value;
+	
 
 	for (size_t i = 0; args && args[i]; ++i) {
 		std::string	token = args[i];
@@ -128,52 +127,33 @@ void	PmergeMe::parseInput(char** args) {
 			--j;
 		}
 	}
+
+	jacobsthalSequence(_inputSize / 2 + 1);
 }
 
 
 void	PmergeMe::jacobsthalSequence(size_t size) {
-	int*	jS = new int[size];
+	_jacobsthalSequence = new int[size];
 	size_t	value;
 
-	for (size_t i = 0; i <= size; ++i) {
+	for (size_t i = 0; i < size; ++i) {
 		if (i == 0)
 			value = 1;
 		else if (i == 1)
 			value = 3;
 		else {
-			value = jS[i - 1] + (2 * jS[i - 2]);
+			value = _jacobsthalSequence[i - 1] + (2 * _jacobsthalSequence[i - 2]);
 		}
 		if (value > size) {
-			_jacobsthalSequence = jS;
 			_jacobsthalSequenceSize = i;
 			return;
 		}
 		else {
-			_jacobsthalSequence[i] = value -1;
+			_jacobsthalSequence[i] = value - 1;
 		}
 	}
 	return;
 }
-
-/*
- * algorithm implementation
-*/
-
-// std::vector<int>	PmergeMe::indexToInsert(size_t size) {
-// 	std::vector<int>	orderOfIndexToInsert;
-// 	_jacobsthalSequence = jacobsthalSequence(size);
-// 	_jacobsthalSequenceSize = size;
-
-// 	for (size_t i = 0; i < size; ++i) {
-// 		if (_jacobsthalSequenceSize > i && _jacobsthalSequence[i] <= size) {
-// 			orderOfIndexToInsert.push_back(_jacobsthalSequence[i] - 1);
-// 		}
-// 		else
-// 		{
-
-// 		}
-// 	}
-// }
 
 template <typename T>
 void	swapIndex(T& t, size_t i, size_t j) {
@@ -215,7 +195,50 @@ void	splitingWinnersAndLosers(const T& t, T& winners, T& losers) {
 	}
 }
 
-std::vector<int>	algorithmImplementationVec(std::vector<int> vec) {
+
+void	binaryInsertionDeq(int n, std::deque<int>& deq, size_t startPosition) {
+	if (startPosition == 0)
+	{
+		deq.insert(deq.begin(), n);
+		return ;
+	}
+
+	size_t left = 0;
+	size_t right = startPosition;
+	while (left < right) {
+		size_t mid = left + (right - left) / 2;
+
+		if (deq[mid] < n)
+			left = mid + 1;
+		else
+			right = mid;
+
+	}
+	deq.insert(deq.begin() + left, n);
+}
+
+void	binaryInsertionVec(int n, std::vector<int>& vec, size_t startPosition) {
+	if (startPosition == 0)
+	{
+		vec.insert(vec.begin(), n);
+		return ;
+	}
+
+	size_t left = 0;
+	size_t right = startPosition;
+	while (left < right) {
+		size_t mid = left + (right - left) / 2;
+
+		if (vec[mid] < n)
+			left = mid + 1;
+		else
+			right = mid;
+
+	}
+	vec.insert(vec.begin() + left, n);
+}
+
+std::vector<int>	PmergeMe::algorithmImplementationVec(std::vector<int>& vec) {
 	if (vec.size() == 1)
 		return vec;
 	if (vec.size() == 2)
@@ -225,34 +248,97 @@ std::vector<int>	algorithmImplementationVec(std::vector<int> vec) {
 		return vec;
 	}
 
-	std::vector<int> 					winners;
+	std::vector<int>					winners;
 	std::vector<int>					losers;
+	std::vector< std::pair<int, int> >	pairs;
 
 	splitingWinnersAndLosers(vec, winners, losers);
 
 	if (PRINT) {
-		std::cout << "*DIVIDING THE CONTAINER*" << std::endl;
+		std::cout << "*DIVIDING THE CONTAINER <STD::VECTOR>*" << std::endl;
 		std::cout << "Winners: ";
-		for (std::vector<int>::iterator it = winners.begin(); it != winners.end(); ++it) {
-			std::cout << *it << " ";
+		for (size_t i = 0; i < winners.size() && i < 30; i++) {
+			std::cout << winners[i] << " ";
 		}
 		std::cout << std::endl;
 		std::cout << "Losers: ";
-		for (std::vector<int>::iterator it = losers.begin(); it != losers.end(); ++it) {
-			std::cout << *it << " ";
+		for (size_t i = 0; i < losers.size() && i < 30; ++i) {
+			std::cout << losers[i] << " ";
 		}
 		std::cout << std::endl << std::endl;
+		std::cout << "*MAKING PAIRS*" << std::endl;
 	}
+
+	for (size_t i = 0; i < winners.size(); ++i) {
+		if (PRINT && i < 10) {
+			std::cout << "[" << winners[i] << "," << losers[i] << "]" << std::endl;
+		}
+		pairs.push_back(std::make_pair(winners[i], losers[i]));
+	}
+
+	if (PRINT)
+		std::cout << "\n";
 
 	winners = algorithmImplementationVec(winners);
 
+	std::vector<int>	reorderedLosers;
 
-	//insert until _jacobsthalSize and next remove the index from the jacobsthalIndex and insert in order
+	for (size_t i = 0; i < winners.size(); ++i) {
+		for (std::vector< std::pair<int, int> >::iterator it = pairs.begin(); it < pairs.end(); ++it) {
+			if (it->first == winners[i])
+				reorderedLosers.push_back(it->second);
+		}
+		if (i == (winners.size() - 1) && losers.size() > winners.size())
+		{
+			++i;
+			while (i < losers.size())
+			{
+				reorderedLosers.push_back(losers[i]);
+				++i;
+			}
+		}
+	}
+
+	if (PRINT) {
+		std::cout << "*REORDERING THE PAIRS*" << std::endl;
+		std::cout << "Winners: ";
+		for (size_t i = 0; i < winners.size() && i < 30; ++i) {
+			std::cout << winners[i] << " ";
+		}
+		std::cout << "\nUnordered losers: ";
+		for (size_t i = 0; i < losers.size() && i < 30; ++i) {
+			std::cout << losers[i] << " ";
+		}
+		std::cout << "\nOrdered losers: ";
+		for (size_t i = 0; i < reorderedLosers.size() && i < 30; ++i) {
+			std::cout << reorderedLosers[i] << " ";
+		}
+		std::cout << "\n\n";
+	}
+
+	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
+		binaryInsertionVec(reorderedLosers[_jacobsthalSequence[i]], winners, _jacobsthalSequence[i]);
+	}
+	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
+		reorderedLosers.erase(reorderedLosers.begin() + _jacobsthalSequence[i]);
+	}
+	for (size_t i = 0; i < reorderedLosers.size(); ++i) {
+		binaryInsertionVec(reorderedLosers[i], winners, winners.size());
+	}
+
+	if (PRINT) {
+		std::cout << "*WINNERS RETURNED*" << std::endl;
+		std::cout << "Winners: ";
+		for (size_t i = 0; i < winners.size() && i < 30; ++i) {
+			std::cout << winners[i] << " ";
+		}
+		std::cout << "\n\n";
+	}
 
 	return (winners);
 }
 
-std::deque<int>	algorithmImplementationDeq(std::deque<int>& deq) {
+std::deque<int>	PmergeMe::algorithmImplementationDeq(std::deque<int>& deq) {
 	if (deq.size() == 1)
 		return deq;
 	if (deq.size() == 2)
@@ -262,31 +348,92 @@ std::deque<int>	algorithmImplementationDeq(std::deque<int>& deq) {
 		return deq;
 	}
 
-	std::deque<int> winners;
-	std::deque<int> losers;
-	std::pair<int, int> pairs;
-
-	//make pair with loop
+	std::deque<int>						winners;
+	std::deque<int>						losers;
+	std::vector< std::pair<int, int> >	pairs;
 
 	splitingWinnersAndLosers(deq, winners, losers);
 
 	if (PRINT) {
-		std::cout << "*DIVIDING THE CONTAINER*" << std::endl;
+		std::cout << "*DIVIDING THE CONTAINER <STD::VECTOR>*" << std::endl;
 		std::cout << "Winners: ";
-		for (std::deque<int>::iterator it = winners.begin(); it != winners.end(); ++it) {
-			std::cout << *it << " ";
+		for (size_t i = 0; i < winners.size() && i < 30; i++) {
+			std::cout << winners[i] << " ";
 		}
 		std::cout << std::endl;
 		std::cout << "Losers: ";
-		for (std::deque<int>::iterator it = losers.begin(); it != losers.end(); ++it) {
-			std::cout << *it << " ";
+		for (size_t i = 0; i < losers.size() && i < 30; ++i) {
+			std::cout << losers[i] << " ";
 		}
 		std::cout << std::endl << std::endl;
+		std::cout << "*MAKING PAIRS*" << std::endl;
 	}
+
+	for (size_t i = 0; i < winners.size(); ++i) {
+		if (PRINT && i < 10) {
+			std::cout << "[" << winners[i] << "," << losers[i] << "]" << std::endl;
+		}
+		pairs.push_back(std::make_pair(winners[i], losers[i]));
+	}
+
+	if (PRINT)
+		std::cout << "\n";
 
 	winners = algorithmImplementationDeq(winners);
 
+	std::vector<int>	reorderedLosers;
 
+	for (size_t i = 0; i < winners.size(); ++i) {
+		for (std::vector< std::pair<int, int> >::iterator it = pairs.begin(); it < pairs.end(); ++it) {
+			if (it->first == winners[i])
+				reorderedLosers.push_back(it->second);
+		}
+		if (i == (winners.size() - 1) && losers.size() > winners.size())
+		{
+			++i;
+			while (i < losers.size())
+			{
+				reorderedLosers.push_back(losers[i]);
+				++i;
+			}
+		}
+	}
+
+	if (PRINT) {
+		std::cout << "*REORDERING THE PAIRS*" << std::endl;
+		std::cout << "Winners: ";
+		for (size_t i = 0; i < winners.size() && i < 30; ++i) {
+			std::cout << winners[i] << " ";
+		}
+		std::cout << "\nUnordered losers: ";
+		for (size_t i = 0; i < losers.size() && i < 30; ++i) {
+			std::cout << losers[i] << " ";
+		}
+		std::cout << "\nOrdered losers: ";
+		for (size_t i = 0; i < reorderedLosers.size() && i < 30; ++i) {
+			std::cout << reorderedLosers[i] << " ";
+		}
+		std::cout << "\n\n";
+	}
+
+	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
+		binaryInsertionDeq(reorderedLosers[_jacobsthalSequence[i]], winners, _jacobsthalSequence[i]);
+	}
+	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
+		reorderedLosers.erase(reorderedLosers.begin() + _jacobsthalSequence[i]);
+	}
+	for (size_t i = 0; i < reorderedLosers.size(); ++i) {
+		binaryInsertionDeq(reorderedLosers[i], winners, winners.size());
+	}
+
+	if (PRINT) {
+		std::cout << "*WINNERS RETURNED*" << std::endl;
+		std::cout << "Winners: ";
+		for (size_t i = 0; i < winners.size() && i < 30; ++i) {
+			std::cout << winners[i] << " ";
+		}
+		std::cout << "\n\n";
+	}
 
 	return winners;
 }
@@ -296,7 +443,24 @@ clock_t	PmergeMe::FordJohnsonVector() {
 	std::vector<int> vec;
 
 	fillContainer(vec, _input, _inputSize);
-	algorithmImplementationVec(vec);
+
+	if (PRINT_VEC) {
+		std::cout << "Before (std::vector): ";
+		for (size_t i = 0; i < vec.size(); ++i) {
+			std::cout << vec[i] << " ";
+		}
+		std::cout << "\n";
+	}
+	vec = algorithmImplementationVec(vec);
+
+	if (PRINT_VEC) {
+		std::cout << "After (std::vector): ";
+		for (size_t i = 0; i < vec.size(); ++i) {
+			std::cout << vec[i] << " ";
+		}
+		std::cout << "\n";
+	}
+
 	return clock() - startTime;
 }
 
@@ -305,6 +469,24 @@ clock_t	PmergeMe::FordJohnsonDeque() {
 	std::deque<int>	deq;
 
 	fillContainer(deq, _input, _inputSize);
-	algorithmImplementationDeq(deq);
+
+	if (PRINT_DEQ) {
+		std::cout << "Before (std::deque): ";
+		for (size_t i = 0; i < deq.size(); ++i) {
+			std::cout << deq[i] << " ";
+		}
+		std::cout << "\n";
+	}
+
+	deq = algorithmImplementationDeq(deq);
+
+	if (PRINT_DEQ) {
+		std::cout << "After (std::deque): ";
+		for (size_t i = 0; i < deq.size(); ++i) {
+			std::cout << deq[i] << " ";
+		}
+		std::cout << "\n";
+	}
+
 	return clock() -startTime;
 }

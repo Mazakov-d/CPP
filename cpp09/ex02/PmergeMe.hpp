@@ -2,12 +2,14 @@
 # define PMERGEME_HPP
 
 #define PRINT 1
+#define PRINT_VEC 0
+#define PRINT_DEQ 0
 
 
 #include <exception>
 #include <iostream>
-
-
+#include <vector>
+#include <deque>
 
 class PmergeMe {
 	private:
@@ -26,7 +28,8 @@ class PmergeMe {
 		clock_t	FordJohnsonVector();
 		clock_t	FordJohnsonDeque();
 		void	parseInput(char** args);
-
+		std::vector<int>	algorithmImplementationVec(std::vector<int>& vec);
+		std::deque<int>		algorithmImplementationDeq(std::deque<int>& deq);
 		class BadToken : public std::exception {
 			private:
 				std::string	_message;
