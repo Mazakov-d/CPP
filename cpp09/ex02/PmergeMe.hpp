@@ -1,9 +1,9 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 
-#define PRINT 1
+#define PRINT 0
 #define PRINT_VEC 0
-#define PRINT_DEQ 0
+#define PRINT_DEQ 1
 
 
 #include <exception>

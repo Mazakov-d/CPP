@@ -127,12 +127,15 @@ void	PmergeMe::parseInput(char** args) {
 			--j;
 		}
 	}
-
-	jacobsthalSequence(_inputSize / 2 + 1);
 }
 
 
 void	PmergeMe::jacobsthalSequence(size_t size) {
+	if (_jacobsthalSequence)
+	{
+		delete[] _jacobsthalSequence;
+		_jacobsthalSequenceSize = 0;
+	}
 	_jacobsthalSequence = new int[size];
 	size_t	value;
 
@@ -202,6 +205,8 @@ void	binaryInsertionDeq(int n, std::deque<int>& deq, size_t startPosition) {
 		deq.insert(deq.begin(), n);
 		return ;
 	}
+	if (startPosition > deq.size())
+		startPosition = deq.size();
 
 	size_t left = 0;
 	size_t right = startPosition;
@@ -223,6 +228,8 @@ void	binaryInsertionVec(int n, std::vector<int>& vec, size_t startPosition) {
 		vec.insert(vec.begin(), n);
 		return ;
 	}
+	if (startPosition > vec.size())
+		startPosition = vec.size();
 
 	size_t left = 0;
 	size_t right = startPosition;
@@ -316,11 +323,17 @@ std::vector<int>	PmergeMe::algorithmImplementationVec(std::vector<int>& vec) {
 		std::cout << "\n\n";
 	}
 
+	jacobsthalSequence(winners.size());
+
 	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
-		binaryInsertionVec(reorderedLosers[_jacobsthalSequence[i]], winners, _jacobsthalSequence[i]);
-	}
-	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
-		reorderedLosers.erase(reorderedLosers.begin() + _jacobsthalSequence[i]);
+		int	idx = _jacobsthalSequence[i] - i;
+		int	binaryInsertionRight = _jacobsthalSequence[i] + i;
+		if (idx < 0)
+			idx = 0;
+		if ((size_t)idx > reorderedLosers.size())
+			break;
+		binaryInsertionVec(reorderedLosers[idx], winners, binaryInsertionRight);
+		reorderedLosers.erase(reorderedLosers.begin() + (idx));
 	}
 	for (size_t i = 0; i < reorderedLosers.size(); ++i) {
 		binaryInsertionVec(reorderedLosers[i], winners, winners.size());
@@ -416,11 +429,17 @@ std::deque<int>	PmergeMe::algorithmImplementationDeq(std::deque<int>& deq) {
 		std::cout << "\n\n";
 	}
 
+	jacobsthalSequence(winners.size());
+
 	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
-		binaryInsertionDeq(reorderedLosers[_jacobsthalSequence[i]], winners, _jacobsthalSequence[i]);
-	}
-	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
-		reorderedLosers.erase(reorderedLosers.begin() + _jacobsthalSequence[i]);
+		int	idx = _jacobsthalSequence[i] - i;
+		int	binaryInsertionRight = _jacobsthalSequence[i] + i;
+		if (idx < 0)
+			idx = 0;
+		if ((size_t)idx > reorderedLosers.size())
+			break;
+		binaryInsertionDeq(reorderedLosers[idx], winners, binaryInsertionRight);
+		reorderedLosers.erase(reorderedLosers.begin() + (idx));
 	}
 	for (size_t i = 0; i < reorderedLosers.size(); ++i) {
 		binaryInsertionDeq(reorderedLosers[i], winners, winners.size());
