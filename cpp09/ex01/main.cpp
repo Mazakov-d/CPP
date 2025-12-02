@@ -10,8 +10,7 @@ int main(int ac, char **av) {
 	RPN	rpn;
 
 	try {
-		rpn.parseInput(av[1]);
-		rpn.execute();
+		rpn.execute(av[1]);
 	}
 	catch (std::exception& e) {
 		std::cout << "Error: " << e.what() << std::endl;

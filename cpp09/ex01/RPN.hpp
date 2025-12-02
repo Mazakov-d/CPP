@@ -12,8 +12,7 @@ class RPN {
 		RPN(const RPN&);
 		RPN& operator=(const RPN&);
 
-		void parseInput(const std::string& arg);
-		void	execute();
+		void execute(const std::string& arg);
 
 		class InputError : public std::exception {
 			public:

@@ -24,24 +24,6 @@ bool	isOperator(char c)
 		return true;
 	return false;
 }
-
-void RPN::parseInput(const std::string& arg) {
-	for (size_t i = 0; i < arg.size(); ++i) {
-		if (arg[i] == ' ')
-			continue;
-		if (isdigit(arg[i]))
-		{
-			if (arg[i + 1] && arg[i + 1] != ' ')
-				throw(InputError());
-			_operands.push(arg[i] - '0');
-		}
-		else if (isOperator(arg[i]))
-			_operators.push(arg[i]);
-		else
-			throw(InputError());
-	}
-}
-
 int	calculate(int a, int b, char c) {
 	if (c == '/') {
 		if (b == 0)
@@ -55,28 +37,33 @@ int	calculate(int a, int b, char c) {
 	return (a * b);
 }
 
-void RPN::execute() {
-	while (1) {
-		if (_operands.size() <= 1 || _operators.empty())
-			break;
-		int	a = _operands.top();
-		_operands.pop();
-
-		int	b = _operands.top();
-		_operands.pop();
-
-		char	c = _operators.top();
-		_operators.pop();
-
-		_operands.push(calculate(a, b, c));
+void RPN::execute(const std::string& arg) {
+	for (size_t i = 0; i < arg.size(); ++i) {
+		if (arg[i] == ' ')
+			continue;
+		if (isdigit(arg[i]))
+		{
+			if (arg[i + 1] && arg[i + 1] != ' ')
+				throw(InputError());
+			_operands.push(arg[i] - '0');
+		}
+		else if (isOperator(arg[i]))
+		{
+			if (_operands.size() < 2)
+				throw(InputError());
+			int a = _operands.top();
+			_operands.pop();
+			int b = _operands.top();
+			_operands.pop();
+			_operands.push(calculate(a, b, arg[i]));
+		}
+		else
+			throw(InputError());
 	}
-	if (_operands.size() != 1 || !_operators.empty())
-	{
+	if (_operands.size() != 1)
 		throw(InputError());
-	}
 	std::cout << _operands.top() << std::endl;
 }
-
 
 
 
