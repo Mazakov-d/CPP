@@ -2,7 +2,7 @@
 # define PMERGEME_HPP
 
 #define PRINT 0
-#define PRINT_VEC 0
+#define PRINT_VEC 1
 #define PRINT_DEQ 1
 
 
@@ -16,7 +16,7 @@ class PmergeMe {
 		int*	_input;
 		size_t	_inputSize;
 		int*	_jacobsthalSequence;
-		size_t	_jacobsthalSequenceSize;
+		int		_jacobsthalSequenceSize;
 
 	public:
 		PmergeMe();

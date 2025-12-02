@@ -139,7 +139,7 @@ void	PmergeMe::jacobsthalSequence(size_t size) {
 	_jacobsthalSequence = new int[size];
 	size_t	value;
 
-	for (size_t i = 0; i < size; ++i) {
+	for (size_t i = 0; i <= size; ++i) {
 		if (i == 0)
 			value = 1;
 		else if (i == 1)
@@ -155,6 +155,7 @@ void	PmergeMe::jacobsthalSequence(size_t size) {
 			_jacobsthalSequence[i] = value - 1;
 		}
 	}
+	_jacobsthalSequenceSize = 0;
 	return;
 }
 
@@ -325,24 +326,47 @@ std::vector<int>	PmergeMe::algorithmImplementationVec(std::vector<int>& vec) {
 
 	jacobsthalSequence(winners.size());
 
-	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
-		int	idx = _jacobsthalSequence[i] - i;
-		int	binaryInsertionRight = _jacobsthalSequence[i] + i;
-		if (idx < 0)
-			idx = 0;
-		if ((size_t)idx > reorderedLosers.size())
-			break;
-		binaryInsertionVec(reorderedLosers[idx], winners, binaryInsertionRight);
-		reorderedLosers.erase(reorderedLosers.begin() + (idx));
+	std::vector<int>	originalWinners = winners;
+	int prev = -1;
+
+	for (int k = 0; k < _jacobsthalSequenceSize; ++k)
+	{
+		int j = _jacobsthalSequence[k];
+
+		if ((size_t)j >= reorderedLosers.size())
+			j = reorderedLosers.size() - 1;
+		for (int x = j; x > prev; --x)
+		{
+			int rightBound = std::distance(
+				winners.begin(),
+				std::find(winners.begin(), winners.end(), originalWinners[j])
+			);
+			binaryInsertionVec(reorderedLosers[x], winners, rightBound);
+			reorderedLosers.erase(reorderedLosers.begin() + x);
+			if (PRINT) {
+				std::cout << "winners: ";
+				for (std::vector<int>::iterator it = winners.begin(); it != winners.end(); ++it) {
+					std::cout << *it << " ";
+				}
+				std::cout << std::endl;
+				std::cout << "losers: ";
+				for (std::vector<int>::iterator it = losers.begin(); it != losers.end(); ++it) {
+					std::cout << *it << " ";
+				}
+				std::cout << std::endl;
+			}
+		}
+
+		prev = j;
 	}
-	for (size_t i = 0; i < reorderedLosers.size(); ++i) {
-		binaryInsertionVec(reorderedLosers[i], winners, winners.size());
+	for (std::vector<int>::reverse_iterator rit = reorderedLosers.rbegin(); rit != reorderedLosers.rend(); ++rit) {
+		binaryInsertionVec(*rit, winners, winners.size());
 	}
 
 	if (PRINT) {
 		std::cout << "*WINNERS RETURNED*" << std::endl;
 		std::cout << "Winners: ";
-		for (size_t i = 0; i < winners.size() && i < 30; ++i) {
+		for (int i = 0; (size_t)i < winners.size() && i < 30; ++i) {
 			std::cout << winners[i] << " ";
 		}
 		std::cout << "\n\n";
@@ -350,6 +374,20 @@ std::vector<int>	PmergeMe::algorithmImplementationVec(std::vector<int>& vec) {
 
 	return (winners);
 }
+
+	// for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
+	// 	int	idx = _jacobsthalSequence[i] - i;
+	// 	int	binaryInsertionRight = _jacobsthalSequence[i] + i;
+	// 	if (idx < 0)
+	// 		idx = 0;
+	// 	if ((size_t)idx > reorderedLosers.size())
+	// 		break;
+	// 	binaryInsertionVec(reorderedLosers[idx], winners, binaryInsertionRight);
+	// 	reorderedLosers.erase(reorderedLosers.begin() + (idx));
+	// }
+	// for (size_t i = 0; i < reorderedLosers.size(); ++i) {
+	// 	binaryInsertionVec(reorderedLosers[i], winners, winners.size());
+	// }
 
 std::deque<int>	PmergeMe::algorithmImplementationDeq(std::deque<int>& deq) {
 	if (deq.size() == 1)
@@ -431,30 +469,52 @@ std::deque<int>	PmergeMe::algorithmImplementationDeq(std::deque<int>& deq) {
 
 	jacobsthalSequence(winners.size());
 
-	for (size_t i = 0; i < _jacobsthalSequenceSize; ++i) {
-		int	idx = _jacobsthalSequence[i] - i;
-		int	binaryInsertionRight = _jacobsthalSequence[i] + i;
-		if (idx < 0)
-			idx = 0;
-		if ((size_t)idx > reorderedLosers.size())
-			break;
-		binaryInsertionDeq(reorderedLosers[idx], winners, binaryInsertionRight);
-		reorderedLosers.erase(reorderedLosers.begin() + (idx));
+	std::deque<int>	originalWinners = winners;
+	int prev = -1;
+
+	for (int k = 0; k < _jacobsthalSequenceSize; ++k)
+	{
+		int j = _jacobsthalSequence[k];
+
+		if ((size_t)j >= reorderedLosers.size())
+			j = reorderedLosers.size() - 1;
+		for (int x = j; x > prev; --x)
+		{
+			int rightBound = std::distance(
+				winners.begin(),
+				std::find(winners.begin(), winners.end(), originalWinners[j])
+			);
+			binaryInsertionDeq(reorderedLosers[x], winners, rightBound);
+			reorderedLosers.erase(reorderedLosers.begin() + x);
+			if (PRINT) {
+				std::cout << "winners: ";
+				for (std::deque<int>::iterator it = winners.begin(); it != winners.end(); ++it) {
+					std::cout << *it << " ";
+				}
+				std::cout << std::endl;
+				std::cout << "losers: ";
+				for (std::deque<int>::iterator it = losers.begin(); it != losers.end(); ++it) {
+					std::cout << *it << " ";
+				}
+				std::cout << std::endl;
+			}
+		}
+		prev = j;
 	}
-	for (size_t i = 0; i < reorderedLosers.size(); ++i) {
-		binaryInsertionDeq(reorderedLosers[i], winners, winners.size());
+	for (std::vector<int>::reverse_iterator rit = reorderedLosers.rbegin(); rit != reorderedLosers.rend(); ++rit) {
+		binaryInsertionDeq(*rit, winners, winners.size());
 	}
 
 	if (PRINT) {
 		std::cout << "*WINNERS RETURNED*" << std::endl;
 		std::cout << "Winners: ";
-		for (size_t i = 0; i < winners.size() && i < 30; ++i) {
+		for (int i = 0; (size_t)i < winners.size() && i < 30; ++i) {
 			std::cout << winners[i] << " ";
 		}
 		std::cout << "\n\n";
 	}
 
-	return winners;
+	return (winners);
 }
 
 clock_t	PmergeMe::FordJohnsonVector() {
