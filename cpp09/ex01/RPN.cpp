@@ -55,7 +55,7 @@ void RPN::execute(const std::string& arg) {
 			_operands.pop();
 			int b = _operands.top();
 			_operands.pop();
-			_operands.push(calculate(a, b, arg[i]));
+			_operands.push(calculate(b, a, arg[i]));
 		}
 		else
 			throw(InputError());
